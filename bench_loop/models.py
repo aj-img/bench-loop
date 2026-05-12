@@ -25,6 +25,9 @@ class MachineInfo:
     system_memory_gb: float = 0.0
     os: str = ""
     backend: str = ""
+    is_remote: bool = False
+    remote_host: str = ""
+    endpoint: str = ""
 
     def summary(self) -> str:
         parts: list[str] = []

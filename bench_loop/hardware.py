@@ -96,16 +96,32 @@ def _endpoint_host(endpoint: str | None) -> str:
 
 
 def _is_local_endpoint(endpoint: str | None) -> bool:
-    host = _endpoint_host(endpoint)
-    return host in {"", "localhost", "127.0.0.1", "::1"}
+    """True only if endpoint is the *default* local Ollama port.
+
+    Non-default localhost ports (11435, 11436, 1234, 8000, 8080, etc.) are
+    treated as remote because they're commonly used for SSH/tcp tunnels to
+    other machines. Better to under-claim local than misreport hardware.
+    """
+    if not endpoint:
+        return True
+    parsed = urlparse(endpoint if "://" in endpoint else f"http://{endpoint}")
+    host = (parsed.hostname or "").strip().lower()
+    port = parsed.port
+    if host not in {"", "localhost", "127.0.0.1", "::1"}:
+        return False
+    # Treat the standard Ollama port (11434), LM Studio (1234), MLX (8000),
+    # and vLLM (8080) on localhost as truly local. Any other localhost port
+    # is almost certainly a tunnel.
+    return port in {None, 11434, 1234, 8000, 8080, 1337, 5001}
 
 
 def _probe_remote_ollama_hardware(endpoint: str) -> dict[str, object] | None:
-    """Best-effort probe of a remote Ollama host for CPU/GPU info.
+    """Best-effort probe of a remote Ollama host for CPU/GPU/VRAM info.
 
-    Ollama exposes `/api/ps` (running models with GPU info) and `/api/show`
-    metadata. Neither gives us full CPU info, so this returns whatever we can
-    extract; missing fields stay blank rather than lying with the local Mac's CPU.
+    Sources:
+      - `/api/ps` — running models with `size_vram` (gives us a floor on GPU memory)
+      - `/api/version` — ollama version
+      - response headers and any other metadata available
     """
     import json
     from urllib.request import Request, urlopen
@@ -117,15 +133,24 @@ def _probe_remote_ollama_hardware(endpoint: str) -> dict[str, object] | None:
         req = Request(f"{base}/api/ps")
         with urlopen(req, timeout=2) as r:
             data = json.loads(r.read().decode("utf-8"))
+        max_vram_bytes = 0
         for m in data.get("models", []) or []:
-            details = m.get("details") or {}
-            family = details.get("family") or ""
             size_vram = m.get("size_vram") or 0
-            if size_vram and not info.get("gpu_memory_gb"):
-                info["gpu_memory_gb"] = round(size_vram / (1024 ** 3), 2)
-            if family and not info.get("_seen_family"):
-                info["_seen_family"] = family
-        info.pop("_seen_family", None)
+            if size_vram > max_vram_bytes:
+                max_vram_bytes = size_vram
+        if max_vram_bytes:
+            # Reported VRAM is what the loaded model is consuming — it's a lower
+            # bound on total GPU memory, not the full card size. Tag it clearly.
+            info["gpu_memory_gb"] = round(max_vram_bytes / (1024 ** 3), 2)
+            info["gpu_memory_note"] = "in-use (lower bound)"
+    except (URLError, OSError, ValueError, TimeoutError):
+        pass
+    try:
+        req = Request(f"{base}/api/version")
+        with urlopen(req, timeout=2) as r:
+            data = json.loads(r.read().decode("utf-8"))
+        if data.get("version"):
+            info["backend_version"] = f"ollama {data['version']}"
     except (URLError, OSError, ValueError, TimeoutError):
         pass
     return info or None
