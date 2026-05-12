@@ -26,7 +26,7 @@ Speed    78.9  █████████░
 Agent    96.9  █████████▌
 ```
 
-Published runs live at <https://benchloop.com/leaderboard>.
+Published runs live at <https://bench-loop.com/leaderboard>.
 
 ## Why
 
@@ -150,7 +150,7 @@ bench-loop/                    ← this repo, the CLI + suites + scorers
 bench-loop-web/                ← the web app (separate repo)
   api/                         ← FastAPI wrapper around bench_loop
   ui/                          ← local dashboard
-  site/                        ← public benchloop.com static site
+  site/                        ← public bench-loop.com static site
 ```
 
 ## Status
