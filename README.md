@@ -1,8 +1,18 @@
 # BenchLoop
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/outsourc-e/bench-loop-web/main/site/public/og-image.png" alt="BenchLoop" width="640" />
+</p>
+
+<p align="center">
+  <a href="https://benchloop.com"><img src="https://img.shields.io/badge/site-benchloop.com-2dd47f?style=flat-square" alt="site" /></a>
+  <a href="https://github.com/outsourc-e/bench-loop/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-2dd47f?style=flat-square" alt="MIT" /></a>
+  <img src="https://img.shields.io/badge/status-beta-eab308?style=flat-square" alt="beta" />
+</p>
+
 **Benchmark local LLMs by what actually matters.**
 
-BenchLoop is a local-first CLI + web app for benchmarking LLMs running on your own hardware. It scores models across six repeatable suites — quality, speed, reliability, agentic tool use, coding, instruction following — and gives you receipts: per-task outputs, latency, token counts, machine info, scores.
+BenchLoop is a local-first CLI + web app for benchmarking LLMs running on your own hardware. It scores models across seven repeatable suites — quality, speed, reliability, agentic tool use, coding, instruction following — and gives you receipts: per-task outputs, latency, token counts, machine info, scores.
 
 No accounts, no telemetry, no API keys. Your model, your machine, your numbers.
 
