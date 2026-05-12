@@ -22,8 +22,8 @@ Ship a credible beta release that people can install, run locally, and understan
 
 Recommended public repos:
 
-- `ocplatform/bench-loop` — Python CLI + benchmark suites/scorers/providers/harnesses
-- `ocplatform/bench-loop-web` — FastAPI local API, React local dashboard, static public site
+- `outsourc-e/bench-loop` — Python CLI + benchmark suites/scorers/providers/harnesses
+- `outsourc-e/bench-loop-web` — FastAPI local API, React local dashboard, static public site
 
 ## Pre-launch checklist
 

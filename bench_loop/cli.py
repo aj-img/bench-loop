@@ -203,7 +203,7 @@ def dashboard(host: str, api_port: int, ui_port: int, api_only: bool) -> None:
     if not api_dir.is_dir():
         click.echo(
             f"Web API not found at {api_dir}.\n"
-            "Clone https://github.com/ocplatform/bench-loop-web alongside this repo,\n"
+            "Clone https://github.com/outsourc-e/bench-loop-web alongside this repo,\n"
             "or set $BENCHLOOP_WEB_DIR.",
             err=True,
         )

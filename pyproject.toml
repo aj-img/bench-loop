@@ -46,8 +46,8 @@ bench-loop = "bench_loop.cli:main"
 [project.urls]
 Homepage = "https://benchloop.com"
 Documentation = "https://benchloop.com/docs"
-Repository = "https://github.com/ocplatform/bench-loop"
-Issues = "https://github.com/ocplatform/bench-loop/issues"
+Repository = "https://github.com/outsourc-e/bench-loop"
+Issues = "https://github.com/outsourc-e/bench-loop/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["bench_loop"]

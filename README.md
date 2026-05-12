@@ -42,7 +42,7 @@ pip install benchloop
 ### From source
 
 ```bash
-git clone https://github.com/ocplatform/bench-loop
+git clone https://github.com/outsourc-e/bench-loop
 cd bench-loop
 pip install -e .
 ```
@@ -123,7 +123,7 @@ Run locally, export to the public leaderboard JSON, open a PR:
 
 ```bash
 benchloop export --output my-runs.json
-# then PR against ocplatform/bench-loop with the JSON
+# then PR against outsourc-e/bench-loop with the JSON
 ```
 
 ## Architecture
