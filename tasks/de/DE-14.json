@@ -1,0 +1,79 @@
+{
+  "id": "DE-14",
+  "category": "D",
+  "difficulty": "hard",
+  "title": "Ambiguous Vendor Comparison Report",
+  "input": "VENDOR EVALUATION — ERP SYSTEM SELECTION\nPrepared by: IT Procurement Committee\nDate: April 28, 2026\n\nOBJECTIVE: Replace our legacy system (SAP R/3, deployed 2015) with a modern cloud ERP for our 3,200-employee organization across 14 countries.\n\nEVALUATION CRITERIA (weighted):\n  Functionality: 30%\n  Total Cost of Ownership (5 years): 25%\n  Implementation timeline: 20%\n  Vendor stability & support: 15%\n  User experience: 10%\n\n─── VENDOR A — NEXUS ERP ───\n\nQuote v3 (April 20): $4.2M for 5 years (perpetual licenses include enterprise add-ons, annual maintenance covered)\n  — Originally quoted $3.8M in January. Price increased due to adding 200 additional user seats (headcount grew from 2,800 to 3,000 by Q1, then revised to 3,200 corporate + 200 contractors = 3,400 total, but they offer unlimited contractor accounts at no extra cost now)\n  — Implementation: 9-12 months (original estimate was 7-9 months in January, padded because Scope B — international payroll module — was added in March)\n  — Go-live target: Q3 2027\n\nFunctionality score (by evaluation team): 92/100\n  Strong: Financials, Supply Chain, HR\n  Weak: Advanced analytics (relying on third-party BI integration)\n\nSupport: 24/7 global, dedicated account manager included\n  Support satisfaction from existing customers: 4.2/5\n\nUser experience (pilot with 50 users): 4.5/5 — praised by pilot group\n\nVendor stability: Public company, NASDAQ: NXUS, revenue $2.1B, growing 18% YoY\n\n─── VENDOR B — ORACLE CLOUD ERP ───\n\nQuote v2 (April 15): $5.8M for 5 years (SaaS subscription, includes professional services)\n  — Original Q4 2025 quote was $5.2M. Price increase was due to Oracle's annual list price adjustment of ~12%. Contract negotiations brought it back down.\n  — Implementation: 12-18 months (Oracle's own estimate; notably longer than Nexus)\n  — Go-live target: Q1 2028\n\nFunctionality score: 95/100\n  Strong: Everything, including built-in AI-powered analytics\n  Weak: Pricing complexity (noted as \"challenging to configure custom reports\")\n\nSupport: 24/7, but some customers report 48-hour response time for non-critical issues\n  Support satisfaction: 3.8/5\n\nUser experience: 3.9/5 — enterprise users find it powerful but complex\n\nVendor stability: Oracle, $50B+ revenue. Extremely stable.\n\n─── VENDOR C — SAP S/4HANA CLOUD ───\n\nQuote v1 (April 10): €4.7M (~$5.1M USD at current rates) for 5 years\n  — Quote is initial and may change; SAP typically requires site visit before final pricing\n  — Implementation: 10-14 months\n  — Go-live: Q4 2027\n\nFunctionality score: 88/100\n  Strong: Seamless upgrade path from our current R/3, Financials\n  Weak: Supply Chain module less mature than competitors\n\nSupport: Standard SAP support (24/5), premium available at additional cost\n  Support satisfaction: 3.6/5 (known for enterprise complexity)\n\nUser experience: 4.1/5 — familiar interface for existing SAP users\n\nVendor stability: SAP, existing vendor — zero migration friction for current users.\n\n─── COMMITTEE PREFERENCE (for record):\n\nThe committee leans toward NEXUS ERP based on current quote. However, there are two concerns:\n  1. The price may increase again if headcount grows beyond 3,200 — but Nexus now says contractor seats are free\n  2. SAP S/4HANA has the advantage of being our existing vendor, but the quote was preliminary\n\nRecommendation: Issue RFP addendum to SAP for confirmed pricing, then make final decision by May 30.",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "report_date": {"type": "string"},
+      "organization_employees": {"type": "number"},
+      "organization_countries": {"type": "number"},
+      "legacy_system": {"type": "string"},
+      "legacy_deployed_year": {"type": "number"},
+      "criteria": {"type": "array", "items": {"type": "object", "properties": {"name": {"type": "string"}, "weight": {"type": "number"}}}},
+      "vendors": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {"type": "string"},
+            "quote": {"type": "string"},
+            "amount": {"type": "number"},
+            "currency": {"type": "string"},
+            "currency_usd_equivalent": {"type": "number"},
+            "implementation_months": {"type": "string"},
+            "go_live": {"type": "string"},
+            "functionality_score": {"type": "number"},
+            "support_satisfaction": {"type": "number"},
+            "user_experience_score": {"type": "number"},
+            "vendor_revenue": {"type": "string"},
+            "is_existing_vendor": {"type": "boolean"}
+          }
+        }
+      },
+      "committee_preference": {"type": "string"},
+      "recommendation": {"type": "string"},
+      "decision_deadline": {"type": "string"}
+    },
+    "required": ["report_date", "vendors", "committee_preference"]
+  },
+  "ground_truth": {
+    "report_date": "April 28, 2026",
+    "organization_employees": 3200,
+    "organization_countries": 14,
+    "legacy_system": "SAP R/3",
+    "legacy_deployed_year": 2015,
+    "criteria": [
+      {"name": "Functionality", "weight": 30},
+      {"name": "Total Cost of Ownership (5 years)", "weight": 25},
+      {"name": "Implementation timeline", "weight": 20},
+      {"name": "Vendor stability & support", "weight": 15},
+      {"name": "User experience", "weight": 10}
+    ],
+    "vendors": [
+      {
+        "name": "NEXUS ERP", "quote": "Quote v3 (April 20)", "amount": 4200000, "currency": "USD",
+        "currency_usd_equivalent": 4200000, "implementation_months": "9-12", "go_live": "Q3 2027",
+        "functionality_score": 92, "support_satisfaction": 4.2, "user_experience_score": 4.5,
+        "vendor_revenue": "$2.1B", "is_existing_vendor": false
+      },
+      {
+        "name": "Oracle Cloud ERP", "quote": "Quote v2 (April 15)", "amount": 5800000, "currency": "USD",
+        "currency_usd_equivalent": 5800000, "implementation_months": "12-18", "go_live": "Q1 2028",
+        "functionality_score": 95, "support_satisfaction": 3.8, "user_experience_score": 3.9,
+        "vendor_revenue": "$50B+", "is_existing_vendor": false
+      },
+      {
+        "name": "SAP S/4HANA Cloud", "quote": "Quote v1 (April 10)", "amount": 4700000, "currency": "EUR",
+        "currency_usd_equivalent": 5100000, "implementation_months": "10-14", "go_live": "Q4 2027",
+        "functionality_score": 88, "support_satisfaction": 3.6, "user_experience_score": 4.1,
+        "vendor_revenue": "", "is_existing_vendor": true
+      }
+    ],
+    "committee_preference": "NEXUS ERP",
+    "recommendation": "Issue RFP addendum to SAP for confirmed pricing, then make final decision",
+    "decision_deadline": "May 30"
+  }
+}

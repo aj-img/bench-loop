@@ -1,0 +1,59 @@
+{
+  "id": "DE-09",
+  "category": "B",
+  "difficulty": "medium",
+  "title": "Charity Donation Receipt",
+  "input": "HARVEST CANADA FOUNDATION\n501(c)(3) Tax ID: 84-3920175\n\nDONATION RECEIPT\n\nReceipt #: DON-2026-03142\nDate: March 14, 2026\nDonor: Jennifer & Thomas O'Brien\nAddress: 782 Willow Creek Dr, Toronto, ON M4P 2J8\n\nDonation Breakdown:\n\n1. Disaster Relief Fund — $250.00\n   One-time, designated donation\n\n2. Annual Operating Fund — $500.00\n   Recurring monthly ($41.67/mo)\n\n3. Youth Scholarship Fund — $150.00\n   One-time, in memory of Robert O'Brien\n\n4. Matching Gift (employer match)\n   TechForward Inc. match: $500.00\n   Match ref: TF-2026-8847\n\nPayment Method: Credit Card (Visa ****5532)\n\nTotal Received: $1,400.00\n\nAcknowledgement: This receipt acknowledges receipt of a total\nof $900.00 in cash contributions. The matching gift of $500.00\nfrom TechForward Inc. is provided separately.\n\nFor tax purposes, $350.00 of your donation was for goods and\nservices (annual gala dinner tickets). The remaining $550.00\nis fully tax-deductible.\n\nContact: donations@harvestcanada.org | (416) 555-8920",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "organization_name": {"type": "string"},
+      "tax_id": {"type": "string"},
+      "receipt_number": {"type": "string"},
+      "receipt_date": {"type": "string"},
+      "donor_name": {"type": "string"},
+      "donor_address": {"type": "string"},
+      "donations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "fund_name": {"type": "string"},
+            "amount": {"type": "number"},
+            "type": {"type": "string"},
+            "designation": {"type": "string"}
+          }
+        }
+      },
+      "payment_method": {"type": "string"},
+      "total_received": {"type": "number"},
+      "cash_contributions": {"type": "number"},
+      "goods_and_services_value": {"type": "number"},
+      "tax_deductible_amount": {"type": "number"},
+      "contact_email": {"type": "string"},
+      "contact_phone": {"type": "string"}
+    },
+    "required": ["organization_name", "receipt_number", "receipt_date", "donor_name", "donations", "total_received"]
+  },
+  "ground_truth": {
+    "organization_name": "HARVEST CANADA FOUNDATION",
+    "tax_id": "84-3920175",
+    "receipt_number": "DON-2026-03142",
+    "receipt_date": "March 14, 2026",
+    "donor_name": "Jennifer & Thomas O'Brien",
+    "donor_address": "782 Willow Creek Dr, Toronto, ON M4P 2J8",
+    "donations": [
+      {"fund_name": "Disaster Relief Fund", "amount": 250.00, "type": "One-time, designated donation", "designation": ""},
+      {"fund_name": "Annual Operating Fund", "amount": 500.00, "type": "Recurring monthly", "designation": "$41.67/mo"},
+      {"fund_name": "Youth Scholarship Fund", "amount": 150.00, "type": "One-time", "designation": "in memory of Robert O'Brien"},
+      {"fund_name": "Matching Gift (employer match)", "amount": 500.00, "type": "Employer match", "designation": "Match ref: TF-2026-8847"}
+    ],
+    "payment_method": "Credit Card (Visa ****5532)",
+    "total_received": 1400.00,
+    "cash_contributions": 900.00,
+    "goods_and_services_value": 350.00,
+    "tax_deductible_amount": 550.00,
+    "contact_email": "donations@harvestcanada.org",
+    "contact_phone": "(416) 555-8920"
+  }
+}

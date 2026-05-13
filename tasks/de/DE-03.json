@@ -1,0 +1,31 @@
+{
+  "id": "DE-03",
+  "category": "A",
+  "difficulty": "easy",
+  "title": "Appointment Confirmation",
+  "input": "Your appointment has been confirmed.\n\nPatient: Olivia Tanaka\nProvider: Dr. Richard Kim\nDate: April 3, 2026\nTime: 10:30 AM\nLocation: 880 Sunset Blvd, Suite 200, Palo Alto, CA\nPhone: (650) 555-3421\n\nPatient Portal: https://patient.healthfirst.org/login\nBring your insurance card and a list of current medications.\nNo fasting required for this visit.",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "patient_name": {"type": "string"},
+      "provider_name": {"type": "string"},
+      "appointment_date": {"type": "string"},
+      "appointment_time": {"type": "string"},
+      "location": {"type": "string"},
+      "phone": {"type": "string"},
+      "patient_portal": {"type": "string"},
+      "preparation_notes": {"type": "string"}
+    },
+    "required": ["patient_name", "provider_name", "appointment_date", "appointment_time", "location"]
+  },
+  "ground_truth": {
+    "patient_name": "Olivia Tanaka",
+    "provider_name": "Dr. Richard Kim",
+    "appointment_date": "April 3, 2026",
+    "appointment_time": "10:30 AM",
+    "location": "880 Sunset Blvd, Suite 200, Palo Alto, CA",
+    "phone": "(650) 555-3421",
+    "patient_portal": "https://patient.healthfirst.org/login",
+    "preparation_notes": "Bring your insurance card and a list of current medications. No fasting required for this visit."
+  }
+}

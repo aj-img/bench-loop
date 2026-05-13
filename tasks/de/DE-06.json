@@ -1,0 +1,73 @@
+{
+  "id": "DE-06",
+  "category": "B",
+  "difficulty": "medium",
+  "title": "Restaurant Menu with Pricing Tiers",
+  "input": "SAVORY & SAGE — MENU — SPRING 2026\n\n─── STARTERS ───\n\nSoup of the Day .................. $9 / $13\n  (single / bowl & plate combo)\n\nGarlic Parmesan Fries ............ $8\nWedge Salad ...................... $11\nCharred Broccoli ................. $12\n\n─── MAINS ───\n\nPan-Seared Halibut ............... $32\n  served with lemon beurre blanc\n\nMushroom Risotto ................. $24 (V)\nWild mushroom medley, parmesan crisp\n\nGrilled Ribeye 12oz .............. $42\n  Nebraska beef, red wine reduction\n\nHouse Burger ..................... $18\n  Angus beef, aged cheddar, brioche bun\n\n─── DESSERTS ───\n\nChocolate Lava Cake .............. $14\nCrème Brûlée ..................... $12\nSeasonal Fruit Tart .............. $13\n\nService charge: 18% added automatically for parties of 6+\nTax: not included (local rate applies)",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "restaurant_name": {"type": "string"},
+      "season": {"type": "string"},
+      "starters": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {"type": "string"},
+            "price_single": {"type": "number"},
+            "price_combo": {"type": "number"}
+          }
+        }
+      },
+      "mains": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {"type": "string"},
+            "price": {"type": "number"},
+            "description": {"type": "string"},
+            "vegetarian": {"type": "boolean"}
+          }
+        }
+      },
+      "desserts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {"type": "string"},
+            "price": {"type": "number"}
+          }
+        }
+      },
+      "service_charge_threshold": {"type": "number"},
+      "service_charge_rate": {"type": "number"}
+    },
+    "required": ["restaurant_name", "starters", "mains", "desserts"]
+  },
+  "ground_truth": {
+    "restaurant_name": "SAVORY & SAGE",
+    "season": "SPRING 2026",
+    "starters": [
+      {"name": "Soup of the Day", "price_single": 9, "price_combo": 13},
+      {"name": "Garlic Parmesan Fries", "price_single": 8, "price_combo": null},
+      {"name": "Wedge Salad", "price_single": 11, "price_combo": null},
+      {"name": "Charred Broccoli", "price_single": 12, "price_combo": null}
+    ],
+    "mains": [
+      {"name": "Pan-Seared Halibut", "price": 32, "description": "served with lemon beurre blanc", "vegetarian": false},
+      {"name": "Mushroom Risotto", "price": 24, "description": "Wild mushroom medley, parmesan crisp", "vegetarian": true},
+      {"name": "Grilled Ribeye 12oz", "price": 42, "description": "Nebraska beef, red wine reduction", "vegetarian": false},
+      {"name": "House Burger", "price": 18, "description": "Angus beef, aged cheddar, brioche bun", "vegetarian": false}
+    ],
+    "desserts": [
+      {"name": "Chocolate Lava Cake", "price": 14},
+      {"name": "Crème Brûlée", "price": 12},
+      {"name": "Seasonal Fruit Tart", "price": 13}
+    ],
+    "service_charge_threshold": 6,
+    "service_charge_rate": 18
+  }
+}

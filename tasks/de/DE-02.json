@@ -1,0 +1,69 @@
+{
+  "id": "DE-02",
+  "category": "A",
+  "difficulty": "easy",
+  "title": "Flight Itinerary",
+  "input": "FLIGHT CONFIRMATION\n\nBooking Ref: KX7M2P\nPassenger: Roberto J. Medina\n\nOutbound: Flight AA 2847\nDate: July 14, 2026\nDeparture: LAX Terminal 4 at 06:30\nArrival: JFK Terminal 8 at 14:55\nSeat: 12A (Window)\nClass: Economy\nBaggage: 1 checked bag included\n\nReturn: Flight AA 156\nDate: July 21, 2026\nDeparture: JFK Terminal 8 at 17:20\nArrival: LAX Terminal 4 at 20:45\nSeat: 22C (Aisle)\nClass: Economy",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "booking_ref": {"type": "string"},
+      "passenger_name": {"type": "string"},
+      "outbound": {
+        "type": "object",
+        "properties": {
+          "flight_number": {"type": "string"},
+          "date": {"type": "string"},
+          "departure_airport": {"type": "string"},
+          "departure_terminal": {"type": "string"},
+          "departure_time": {"type": "string"},
+          "arrival_airport": {"type": "string"},
+          "arrival_terminal": {"type": "string"},
+          "arrival_time": {"type": "string"}
+        }
+      },
+      "return": {
+        "type": "object",
+        "properties": {
+          "flight_number": {"type": "string"},
+          "date": {"type": "string"},
+          "departure_airport": {"type": "string"},
+          "departure_terminal": {"type": "string"},
+          "departure_time": {"type": "string"},
+          "arrival_airport": {"type": "string"},
+          "arrival_terminal": {"type": "string"},
+          "arrival_time": {"type": "string"}
+        }
+      },
+      "seats": {"type": "array", "items": {"type": "string"}},
+      "baggage_included": {"type": "boolean"}
+    },
+    "required": ["booking_ref", "passenger_name", "outbound", "return"]
+  },
+  "ground_truth": {
+    "booking_ref": "KX7M2P",
+    "passenger_name": "Roberto J. Medina",
+    "outbound": {
+      "flight_number": "AA 2847",
+      "date": "July 14, 2026",
+      "departure_airport": "LAX",
+      "departure_terminal": "4",
+      "departure_time": "06:30",
+      "arrival_airport": "JFK",
+      "arrival_terminal": "8",
+      "arrival_time": "14:55"
+    },
+    "return": {
+      "flight_number": "AA 156",
+      "date": "July 21, 2026",
+      "departure_airport": "JFK",
+      "departure_terminal": "8",
+      "departure_time": "17:20",
+      "arrival_airport": "LAX",
+      "arrival_terminal": "4",
+      "arrival_time": "20:45"
+    },
+    "seats": ["12A (Window)", "22C (Aisle)"],
+    "baggage_included": true
+  }
+}

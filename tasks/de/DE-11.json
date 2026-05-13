@@ -1,0 +1,66 @@
+{
+  "id": "DE-11",
+  "category": "C",
+  "difficulty": "hard",
+  "title": "Ambiguous Status Update — Extract Current State",
+  "input": "INTERNAL MEMO — DO NOT FORWARD\n\nTo: Leadership Team\nFrom: Procurement Office\nDate: May 10, 2026\nRe: Q2 Server Hardware Procurement\n\nSTATUS — Updated 5:45 PM today:\n\nWe were originally going to order 48 Dell PowerEdge R760 servers from Dell direct at $8,950 each. But procurement flagged that HPE has a better deal: 50 x HPE ProLiant DL380 Gen11 at $8,200 each, and they'll include free deployment services worth $15,000.\n\nIT pushed back on HPE because they're already standardized on Dell infrastructure. The compromise draft (attached) suggests 32 Dell + 18 HPE in a mixed fleet, but I haven't seen final sign-off from the CTO yet. CTO was out of office last week returning Monday.\n\nBudget allocation:\n  Original budget: $430,000\n  Reallocation requested: $448,000 (HPE deal)\n  Compromise option: $414,400\n\nFinance approved the original $430K but not the increase. The compromise option is under budget so that should go through. I'd say proceed with the mixed fleet unless CTO objects when they return.\n\nFinal call needs to be made by May 15.\n\nDistribution: CFO, CTO, CIO, VP Engineering\nPrepared by: Maria Santos, Procurement Director",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "memo_date": {"type": "string"},
+      "sender": {"type": "string"},
+      "sender_title": {"type": "string"},
+      "distribution": {"type": "array", "items": {"type": "string"}},
+      "deadline": {"type": "string"},
+      "options": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "vendor": {"type": "string"},
+            "model": {"type": "string"},
+            "quantity": {"type": "number"},
+            "unit_price": {"type": "number"},
+            "total": {"type": "number"},
+            "included_services": {"type": "string"},
+            "status": {"type": "string"}
+          }
+        }
+      },
+      "budget_original": {"type": "number"},
+      "budget_requested": {"type": "number"},
+      "budget_compromise": {"type": "number"},
+      "finance_approval": {"type": "string"},
+      "pending_approval_from": {"type": "string"},
+      "recommended_option": {"type": "string"}
+    },
+    "required": ["memo_date", "sender", "options", "recommended_option"]
+  },
+  "ground_truth": {
+    "memo_date": "May 10, 2026",
+    "sender": "Maria Santos",
+    "sender_title": "Procurement Director",
+    "distribution": ["CFO", "CTO", "CIO", "VP Engineering"],
+    "deadline": "May 15",
+    "options": [
+      {
+        "vendor": "Dell", "model": "PowerEdge R760", "quantity": 48, "unit_price": 8950, "total": 429600,
+        "included_services": "", "status": "original plan — superseded"
+      },
+      {
+        "vendor": "HPE", "model": "ProLiant DL380 Gen11", "quantity": 50, "unit_price": 8200, "total": 410000,
+        "included_services": "free deployment services worth $15,000", "status": "preferred deal — IT pushed back"
+      },
+      {
+        "vendor": "Mixed fleet", "model": "Dell + HPE", "quantity": 50, "unit_price": 0, "total": 414400,
+        "included_services": "", "status": "compromise draft — awaiting CTO sign-off"
+      }
+    ],
+    "budget_original": 430000,
+    "budget_requested": 448000,
+    "budget_compromise": 414400,
+    "finance_approval": "approved original $430K, not the increase",
+    "pending_approval_from": "CTO",
+    "recommended_option": "proceed with the mixed fleet unless CTO objects"
+  }
+}

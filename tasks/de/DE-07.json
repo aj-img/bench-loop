@@ -1,0 +1,94 @@
+{
+  "id": "DE-07",
+  "category": "B",
+  "difficulty": "medium",
+  "title": "Group Order with Special Instructions",
+  "input": "GROUP ORDER — CONFIRMATION\nOrder # GO-55892\nPlaced: May 8, 2026 12:34 PM | Pickup: May 8, 2026 1:00 PM\n\nCustomer: Daniel Reyes\nPhone: 510-555-0673\nOrdering for 5 people.\n\nItemized by person:\n\nDANIEL — $28.50\n  1x California Club Sandwich — $14.50\n    No pickles, extra mustard\n  1x Sweet Potato Fries — $6.00\n  1x Fresh Squeezed Lemonade — $5.00\n\nAMANDA — $19.00\n  1x Garden Power Bowl (Tofu) — $15.00\n    Dressing on the side, no croutons\n  1x Iced Green Tea — $4.00\n\nJASON — $22.00\n  1x BBQ Pulled Pork Sandwich — $14.00\n    With coleslaw on the side\n  1x Classic Fries — $5.00\n  1x Root Beer — $3.00\n\nPRIYA — $16.50\n  1x Veggie Wrap — $10.00\n    With hummus, no jalapeños\n  1x Coconut Water — $3.50\n  1x Apple Slices — $3.00\n\nMARCUS — $24.00\n  1x Nashville Hot Chicken Sandwich — $15.00\n    Extra spicy, side of ranch\n  1x Onion Rings — $7.00\n  1x Vanilla Milkshake — $4.50\n\nSubtotal: $110.00\nTax: $9.13\nTotal: $119.13\nPayment: Amex ending 8891\n\nNOTES: Amanda is allergic to gluten — please use gluten-free buns for her sandwich. Marcus is allergic to peanuts — ensure no cross-contact.",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "order_number": {"type": "string"},
+      "customer_name": {"type": "string"},
+      "customer_phone": {"type": "string"},
+      "party_size": {"type": "number"},
+      "order_time": {"type": "string"},
+      "pickup_time": {"type": "string"},
+      "people": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {"type": "string"},
+            "total": {"type": "number"},
+            "items": {"type": "array", "items": {"type": "object", "properties": {"name": {"type": "string"}, "price": {"type": "number"}, "notes": {"type": "string"}}}}
+          }
+        }
+      },
+      "subtotal": {"type": "number"},
+      "tax": {"type": "number"},
+      "total": {"type": "number"},
+      "payment": {"type": "string"},
+      "allergy_notes": {"type": "array", "items": {"type": "string"}}
+    },
+    "required": ["order_number", "customer_name", "people", "total"]
+  },
+  "ground_truth": {
+    "order_number": "GO-55892",
+    "customer_name": "Daniel Reyes",
+    "customer_phone": "510-555-0673",
+    "party_size": 5,
+    "order_time": "May 8, 2026 12:34 PM",
+    "pickup_time": "May 8, 2026 1:00 PM",
+    "people": [
+      {
+        "name": "DANIEL",
+        "total": 28.50,
+        "items": [
+          {"name": "California Club Sandwich", "price": 14.50, "notes": "No pickles, extra mustard"},
+          {"name": "Sweet Potato Fries", "price": 6.00, "notes": ""},
+          {"name": "Fresh Squeezed Lemonade", "price": 5.00, "notes": ""}
+        ]
+      },
+      {
+        "name": "AMANDA",
+        "total": 19.00,
+        "items": [
+          {"name": "Garden Power Bowl (Tofu)", "price": 15.00, "notes": "Dressing on the side, no croutons"},
+          {"name": "Iced Green Tea", "price": 4.00, "notes": ""}
+        ]
+      },
+      {
+        "name": "JASON",
+        "total": 22.00,
+        "items": [
+          {"name": "BBQ Pulled Pork Sandwich", "price": 14.00, "notes": "With coleslaw on the side"},
+          {"name": "Classic Fries", "price": 5.00, "notes": ""},
+          {"name": "Root Beer", "price": 3.00, "notes": ""}
+        ]
+      },
+      {
+        "name": "PRIYA",
+        "total": 16.50,
+        "items": [
+          {"name": "Veggie Wrap", "price": 10.00, "notes": "With hummus, no jalapeños"},
+          {"name": "Coconut Water", "price": 3.50, "notes": ""},
+          {"name": "Apple Slices", "price": 3.00, "notes": ""}
+        ]
+      },
+      {
+        "name": "MARCUS",
+        "total": 24.00,
+        "items": [
+          {"name": "Nashville Hot Chicken Sandwich", "price": 15.00, "notes": "Extra spicy, side of ranch"},
+          {"name": "Onion Rings", "price": 7.00, "notes": ""},
+          {"name": "Vanilla Milkshake", "price": 4.50, "notes": ""}
+        ]
+      }
+    ],
+    "subtotal": 110.00,
+    "tax": 9.13,
+    "total": 119.13,
+    "payment": "Amex ending 8891",
+    "allergy_notes": ["Amanda is allergic to gluten — please use gluten-free buns for her sandwich.", "Marcus is allergic to peanuts — ensure no cross-contact."]
+  }
+}
