@@ -1,6 +1,7 @@
 """Hardware detection helpers."""
 from __future__ import annotations
 
+import os
 import platform
 import re
 import shutil
@@ -44,8 +45,68 @@ def _detect_cpu_model() -> str:
     return processor or machine or "unknown"
 
 
+def _detect_apple_gpu() -> dict[str, object]:
+    """Apple Silicon GPU is part of the SoC; report the chip as GPU-ish hardware."""
+    if platform.system() != "Darwin":
+        return {}
+    hardware = _run_command(["system_profiler", "SPHardwareDataType"])
+    chip = ""
+    match = re.search(r"Chip:\s*(.+)", hardware)
+    if match:
+        chip = match.group(1).strip()
+    memory_gb = round(psutil.virtual_memory().total / (1024**3), 2)
+    if chip:
+        return {
+            "gpu": f"{chip} integrated GPU",
+            "gpu_memory_gb": memory_gb,
+            "gpu_temperature_c": None,
+            "gpu_details": [{"name": f"{chip} integrated GPU", "memory_gb": memory_gb, "memory_type": "unified"}],
+        }
+    return {}
+
+
+def _env_float(name: str, default: float = 0.0) -> float:
+    try:
+        return float(os.environ.get(name, "") or default)
+    except ValueError:
+        return default
+
+
+def _env_hardware_overrides() -> dict[str, object]:
+    """Explicit hardware attribution for tunnels/remote endpoints.
+
+    Useful when benchmarking a server through localhost:PORT where the CLI
+    process is local but inference runs elsewhere.
+    """
+    overrides: dict[str, object] = {}
+    if os.environ.get("BENCHLOOP_HARDWARE_LABEL"):
+        overrides["hardware_label"] = os.environ["BENCHLOOP_HARDWARE_LABEL"]
+    if os.environ.get("BENCHLOOP_GPU"):
+        overrides["gpu"] = os.environ["BENCHLOOP_GPU"]
+    if os.environ.get("BENCHLOOP_CPU"):
+        overrides["cpu"] = os.environ["BENCHLOOP_CPU"]
+    if os.environ.get("BENCHLOOP_GPU_MEMORY_GB"):
+        overrides["gpu_memory_gb"] = _env_float("BENCHLOOP_GPU_MEMORY_GB")
+    if os.environ.get("BENCHLOOP_SYSTEM_MEMORY_GB"):
+        overrides["system_memory_gb"] = _env_float("BENCHLOOP_SYSTEM_MEMORY_GB")
+    return overrides
+
+
 def _detect_gpu() -> dict[str, object]:
+    overrides = _env_hardware_overrides()
+    if overrides.get("gpu") or overrides.get("hardware_label"):
+        return {
+            "gpu": str(overrides.get("gpu", "")),
+            "gpu_memory_gb": float(overrides.get("gpu_memory_gb", 0.0) or 0.0),
+            "gpu_temperature_c": None,
+            "gpu_details": [],
+            "hardware_label": str(overrides.get("hardware_label", "")),
+        }
+
     if not shutil.which("nvidia-smi"):
+        apple = _detect_apple_gpu()
+        if apple:
+            return apple
         return {
             "gpu": "",
             "gpu_memory_gb": 0.0,
@@ -164,29 +225,35 @@ def detect_hardware(endpoint: str | None = None) -> dict[str, object]:
     endpoint_host = _endpoint_host(endpoint)
 
     if is_remote:
-        # Don't lie: the local CPU/GPU is NOT what's running the model. Blank
-        # out hardware fields and label by host. Try a best-effort remote probe.
+        # Don't lie: the local CPU/GPU is NOT what's running the model. For
+        # tunnels, prefer explicit BENCHLOOP_* hardware labels. Otherwise use
+        # best-effort remote probe and mark unknown fields blank.
         remote = _probe_remote_ollama_hardware(endpoint or "") or {}
+        overrides = _env_hardware_overrides()
         gpu_info = {
-            "gpu": str(remote.get("gpu", "")),
-            "gpu_memory_gb": float(remote.get("gpu_memory_gb", 0.0) or 0.0),
+            "gpu": str(overrides.get("gpu") or remote.get("gpu", "")),
+            "gpu_memory_gb": float(overrides.get("gpu_memory_gb") or remote.get("gpu_memory_gb", 0.0) or 0.0),
             "gpu_temperature_c": None,
             "gpu_details": [],
         }
+        hardware_label = str(overrides.get("hardware_label") or "")
+        cpu = str(overrides.get("cpu") or "")
+        system_memory_gb = float(overrides.get("system_memory_gb") or 0.0)
         machine_id = f"remote:{endpoint_host}" if endpoint_host else "remote"
         return {
             "machine_id": machine_id,
             "os": "remote",
             "platform": f"remote@{endpoint_host}",
             "architecture": "",
-            "cpu": "",  # honest: we don't know remote CPU
+            "cpu": cpu,
             "cpu_logical_cores": 0,
             "cpu_physical_cores": 0,
-            "system_memory_gb": 0.0,
+            "system_memory_gb": system_memory_gb,
             "backend": "ollama",
             "endpoint": endpoint or "",
             "is_remote": True,
             "remote_host": endpoint_host,
+            "hardware_label": hardware_label,
             **gpu_info,
         }
 

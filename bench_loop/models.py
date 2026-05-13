@@ -28,15 +28,20 @@ class MachineInfo:
     is_remote: bool = False
     remote_host: str = ""
     endpoint: str = ""
+    hardware_label: str = ""
 
     def summary(self) -> str:
         parts: list[str] = []
+        if self.hardware_label:
+            return self.hardware_label
         if self.gpu:
             parts.append(self.gpu)
         if self.gpu_memory_gb:
             parts.append(f"{self.gpu_memory_gb:.0f}GB VRAM")
         if self.cpu:
             parts.append(self.cpu)
+        if self.system_memory_gb and self.cpu and not self.gpu:
+            parts.append(f"{self.system_memory_gb:.0f}GB RAM")
         return " / ".join(parts) if parts else self.machine_id
 
 
