@@ -1,0 +1,1 @@
+{"input": "convert 'benchmark' to uppercase", "expected_tool": "string_tools", "expected_args": {"text": "benchmark", "operation": "uppercase"}, "acceptable_alternatives": [{"operation": "uppercase"}, {"operation": "upper"}, {"text": "benchmark "}], "tool_backend": "string_tools", "difficulty": "easy"}

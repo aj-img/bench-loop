@@ -1,0 +1,1 @@
+{"input": "reverse the word 'hello world'", "expected_tool": "string_tools", "expected_args": {"text": "hello world", "operation": "reverse"}, "acceptable_alternatives": [{"operation": "reverse"}, {"operation": "Reverse"}, {"text": "hello world "}], "tool_backend": "string_tools", "difficulty": "easy"}

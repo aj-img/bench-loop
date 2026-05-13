@@ -1,0 +1,1 @@
+{"input": "what's the weather like in San Francisco?", "expected_tool": "weather", "expected_args": {"location": "San Francisco"}, "acceptable_alternatives": [{"location": "san francisco"}, {"location": "SF"}, {"location": "Sanfrancisco"}], "tool_backend": "weather", "difficulty": "easy"}

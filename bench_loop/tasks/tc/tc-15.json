@@ -1,0 +1,1 @@
+{"input": "tell me the weather in Berlin and look up the stock for GOOGL", "expected_tool": "weather", "expected_args": {"location": "Berlin"}, "acceptable_alternatives": [{"location": "berlin"}, {"location": "Berlin, Germany"}], "tool_backend": "weather", "difficulty": "hard"}

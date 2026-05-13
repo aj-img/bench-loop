@@ -1,0 +1,1 @@
+{"input": "temperature in Tokyo?", "expected_tool": "weather", "expected_args": {"location": "Tokyo"}, "acceptable_alternatives": [{"location": "tokyo"}], "tool_backend": "weather", "difficulty": "easy"}

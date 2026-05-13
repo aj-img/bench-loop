@@ -7,6 +7,7 @@ from bench_loop.suites.dataextract import DataExtractSuite
 from bench_loop.suites.instructfollow import InstructFollowSuite
 from bench_loop.suites.reasonmath import ReasonMathSuite
 from bench_loop.suites.speed import SpeedSuite
+from bench_loop.suites.tc_suite import TcSuite
 from bench_loop.suites.toolcall import ToolCallSuite
 
 # v2 shipping suites. `coding` runs Python via subprocess sandbox with 10s timeout.
@@ -14,6 +15,7 @@ from bench_loop.suites.toolcall import ToolCallSuite
 SUITE_REGISTRY = {
     "speed": SpeedSuite,
     "toolcall": ToolCallSuite,
+    "tc_suite": TcSuite,
     "dataextract": DataExtractSuite,
     "instructfollow": InstructFollowSuite,
     "reasonmath": ReasonMathSuite,
@@ -39,5 +41,6 @@ __all__ = [
     "ReasonMathSuite",
     "SpeedSuite",
     "SUITE_REGISTRY",
+    "TcSuite",
     "ToolCallSuite",
 ]
