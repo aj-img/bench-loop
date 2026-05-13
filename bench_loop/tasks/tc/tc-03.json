@@ -1,0 +1,1 @@
+{"input": "divide 54 by 6", "expected_tool": "calculator", "expected_args": {"expression": "54 / 6"}, "acceptable_alternatives": [{"expression": "54/6"}, {"expression": "54 ÷ 6"}], "tool_backend": "calculator", "difficulty": "easy"}

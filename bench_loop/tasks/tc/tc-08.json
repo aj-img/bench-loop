@@ -1,0 +1,1 @@
+{"input": "how is MSFT doing today?", "expected_tool": "stock_lookup", "expected_args": {"symbol": "MSFT"}, "acceptable_alternatives": [{"symbol": "msft"}, {"ticker": "MSFT"}], "tool_backend": "stock_lookup", "difficulty": "easy"}

@@ -1,0 +1,1 @@
+{"input": "what is 15 * 23?", "expected_tool": "calculator", "expected_args": {"expression": "15 * 23"}, "acceptable_alternatives": [{"expression": "15*23"}, {"expression": "15 × 23"}], "tool_backend": "calculator", "difficulty": "easy"}

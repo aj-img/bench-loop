@@ -1,0 +1,1 @@
+{"input": "what is 100 - 37?", "expected_tool": "calculator", "expected_args": {"expression": "100 - 37"}, "acceptable_alternatives": [{"expression": "100-37"}, {"expression": "100 − 37"}], "tool_backend": "calculator", "difficulty": "easy"}

@@ -1,0 +1,1 @@
+{"input": "is it raining in London right now?", "expected_tool": "weather", "expected_args": {"location": "London"}, "acceptable_alternatives": [{"location": "london"}], "tool_backend": "weather", "difficulty": "easy"}

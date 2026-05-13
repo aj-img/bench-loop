@@ -1,0 +1,1 @@
+{"input": "what is 2 * 3 * 4 + 10 and what is the weather in New York?", "expected_tool": "calculator", "expected_args": {"expression": "2 * 3 * 4 + 10"}, "acceptable_alternatives": [{"expression": "2*3*4+10"}, {"expression": "24"}, {"expression": "6*4+10"}], "tool_backend": "calculator", "difficulty": "hard"}

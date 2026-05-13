@@ -1,0 +1,1 @@
+{"input": "what is the current price of AAPL stock?", "expected_tool": "stock_lookup", "expected_args": {"symbol": "AAPL"}, "acceptable_alternatives": [{"symbol": "aapl"}, {"ticker": "AAPL"}, {"ticker": "aapl"}], "tool_backend": "stock_lookup", "difficulty": "easy"}
