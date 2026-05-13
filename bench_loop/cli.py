@@ -136,18 +136,27 @@ def run(
         click.echo("Is your local LLM server running?", err=True)
         raise SystemExit(1)
     except Exception as exc:  # noqa: BLE001
-        # Catch-all so a single mid-run failure (HTTP 500, OOM, network hiccup)
-        # gives the user a clean error instead of a Python traceback.
+        # Catch-all so a single mid-run failure (HTTP 500, OOM, network hiccup,
+        # ConnectError, ReadTimeout) gives the user a clean error instead of a
+        # Python traceback.
         type_name = type(exc).__name__
-        click.secho(f"\n✗ Benchmark failed ({type_name}): {exc}\n", fg="red", err=True)
-        if "500" in str(exc) or "Internal Server Error" in str(exc):
+        msg = str(exc)
+        click.secho(f"\n✗ Benchmark failed ({type_name}): {msg or 'no message'}\n", fg="red", err=True)
+        if type_name in {"ConnectError", "ConnectionRefusedError", "ConnectionError"} or "connection" in msg.lower():
+            click.echo(f"Could not reach endpoint {endpoint}.", err=True)
+            click.echo("Tips:", err=True)
+            click.echo("  • Start your local LLM server:", err=True)
+            click.echo("      Ollama:    ollama serve", err=True)
+            click.echo("      LM Studio: launch app, enable local server", err=True)
+            click.echo("  • Verify the endpoint URL and port are right.", err=True)
+            click.echo("  • If your endpoint isn't Ollama, pass --provider openai_compat", err=True)
+        elif "500" in msg or "Internal Server Error" in msg:
             click.echo("The provider returned HTTP 500. Common causes:", err=True)
             click.echo("  • Model context window exceeded for this prompt", err=True)
             click.echo("  • GPU OOM (try a smaller model or close other models)", err=True)
             click.echo("  • Ollama crashed (check `ollama serve` logs)", err=True)
-        elif "timeout" in str(exc).lower():
-            click.echo("Timeout. Try a smaller model or check network stability.", err=True)
-        click.echo("\nFull error type: " + type_name, err=True)
+        elif "timeout" in msg.lower() or type_name == "ReadTimeout":
+            click.echo("Timeout. Try a smaller model, fewer suites, or check network stability.", err=True)
         raise SystemExit(1)
     print_run_report(benchmark)
     save_run(benchmark, endpoint=endpoint)

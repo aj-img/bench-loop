@@ -1,21 +1,36 @@
-"""BenchLoop API — FastAPI backend for local LLM benchmarking."""
+"""BenchLoop API — FastAPI backend for local LLM benchmarking.
+
+When this module is loaded from inside the installed `benchloop-cli` package
+(`bench_loop.dashboard.api.main`), the `bench_loop` package is already on
+`sys.path` and there is nothing to bootstrap. The legacy bench-loop-web repo
+layout placed this file under `bench-loop-web/api/`, where it needed to add
+`../bench-loop` to `sys.path` manually. The block below preserves that legacy
+behaviour without hardcoding any paths or any specific user's home directory.
+"""
 from __future__ import annotations
 
 import os
 import sys
 from pathlib import Path
 
-# Canonical bench-loop lives in the live workspace, NOT in this backup tree.
-# The old relative-path resolver picked up the stale `workspace.pre-symlink-backup-...`
-# copy which had a different RunConfig schema and the LT-XX task IDs. Override.
-_default_bench_loop = "/Users/aurora/.ocplatform/workspace/bench-loop"
-bench_loop_root = Path(os.environ.get("BENCH_LOOP_DIR", _default_bench_loop)).resolve()
-if not (bench_loop_root / "bench_loop").is_dir():
-    # Fall back to the historical relative path if the canonical one is missing.
-    bench_loop_root = (Path(__file__).resolve().parent.parent.parent / "bench-loop").resolve()
-if str(bench_loop_root) not in sys.path:
-    sys.path.insert(0, str(bench_loop_root))
-print(f"[bench-loop-api] using bench_loop from: {bench_loop_root}", flush=True)
+try:
+    import bench_loop  # noqa: F401
+    _bench_loop_already_importable = True
+except ImportError:
+    _bench_loop_already_importable = False
+
+if not _bench_loop_already_importable:
+    # Legacy bench-loop-web layout: this file lives in `bench-loop-web/api/`,
+    # so `bench-loop/` should be a sibling.
+    candidates = []
+    if env_path := os.environ.get("BENCH_LOOP_DIR"):
+        candidates.append(Path(env_path))
+    candidates.append(Path(__file__).resolve().parent.parent.parent / "bench-loop")
+    for c in candidates:
+        if (c / "bench_loop").is_dir():
+            sys.path.insert(0, str(c.resolve()))
+            print(f"[bench-loop-api] using bench_loop from: {c.resolve()}", flush=True)
+            break
 
 # Ensure api package root is importable for routes
 api_root = Path(__file__).resolve().parent
