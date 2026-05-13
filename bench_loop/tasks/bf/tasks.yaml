@@ -1,0 +1,402 @@
+# BF-15 Bug-Finding Suite
+# Each task presents a buggy Python function. The model must identify and fix the bug.
+# Bug types: off-by-one, logic inversion, missing edge case, type confusion,
+#   index out of bounds, wrong operator, missing return, float precision,
+#   infinite loop, wrong sort, regex boundary, uninitialized var, wrong default,
+#   encoding issue, race condition.
+
+tasks:
+- id: BF-001
+  title: Off-by-one error in range summation
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to return the sum of all
+        integers from start to end inclusive, but it contains exactly one bug.
+
+        Find the bug and fix it. Return ONLY the corrected function body (the for loop).
+
+        ```python
+        def sum_range(start: int, end: int) -> int:
+            total = 0
+            for i in range(start, end):  # BUG: misses the end value
+                total += i
+            return total
+        ```
+
+  max_tokens: 512
+  difficulty: easy
+  capability_tags: [code-debugging, algorithm]
+  verifier_type: exact_match
+  metadata:
+    bug_type: off-by-one-error
+    fix_line: "range(start, end + 1)"
+
+- id: BF-002
+  title: Logic inversion in palindrome check
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to return True if the
+        text reads the same forwards and backwards, but it contains exactly one bug.
+
+        Find the bug and fix it.
+
+        ```python
+        def is_palindrome(text: str) -> bool:
+            cleaned = text.lower().replace(" ", "")
+            return cleaned != cleaned[::-1]  # BUG: inverted comparison
+        ```
+
+  max_tokens: 512
+  difficulty: easy
+  capability_tags: [code-debugging, string-manipulation]
+  verifier_type: exact_match
+  metadata:
+    bug_type: logic-inversion
+    fix_line: "== cleaned[::-1]"
+
+- id: BF-003
+  title: Missing edge case — empty list
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to return the maximum
+        value in a list of integers, but it contains exactly one bug.
+
+        Find the bug and fix it. Add proper handling for the edge case.
+
+        ```python
+        def find_max(values: list[int]) -> int:
+            max_val = values[0]
+            for i in range(1, len(values)):  # BUG: crashes on empty list
+                if values[i] > max_val:
+                    max_val = values[i]
+            return max_val
+        ```
+
+  max_tokens: 512
+  difficulty: easy
+  capability_tags: [code-debugging, edge-cases]
+  verifier_type: exact_match
+  metadata:
+    bug_type: missing-edge-case
+    fix_line: "if not values:"
+
+- id: BF-004
+  title: Type confusion — string vs float
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to calculate the total
+        price from a string base_price, tax rate, and quantity, but it contains
+        exactly one bug.
+
+        Find the bug and fix it.
+
+        ```python
+        def calculate_total_price(base_price: str, tax_rate: float, quantity: int) -> float:
+            price = base_price  # BUG: base_price is a str, not converted to float
+            return price * (1 + tax_rate) * quantity
+        ```
+
+  max_tokens: 512
+  difficulty: easy
+  capability_tags: [code-debugging, type-handling]
+  verifier_type: exact_match
+  metadata:
+    bug_type: type-confusion
+    fix_line: "float(base_price)"
+
+- id: BF-005
+  title: Index out of bounds in list access
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to return the last two
+        elements of a list, but it contains exactly one bug.
+
+        Find the bug and fix it.
+
+        ```python
+        def get_last_two_elements(items: list) -> list:
+            if len(items) < 2:
+                return items
+            first = items[len(items)]  # BUG: should be len(items) - 2
+            second = items[len(items) - 1]
+            return [first, second]
+        ```
+
+  max_tokens: 512
+  difficulty: easy
+  capability_tags: [code-debugging, list-indexing]
+  verifier_type: exact_match
+  metadata:
+    bug_type: index-out-of-bounds
+    fix_line: "len(items) - 2"
+
+- id: BF-006
+  title: Wrong comparison operator
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to classify a test score
+        into letter grades (A: 90+, B: 80-89, C: 70-79, D: 60-69, F: below 60), but it
+        contains exactly one bug.
+
+        Find the bug and fix it.
+
+        ```python
+        def classify_score(score: float) -> str:
+            if score < 90:  # BUG: should be <= for exactly 90 to be A
+                if score < 80:
+                    if score < 70:
+                        if score < 60:
+                            return "D"
+                        return "C"
+                    return "B"
+                return "A"
+            return "F"
+        ```
+
+  max_tokens: 512
+  difficulty: easy
+  capability_tags: [code-debugging, logic]
+  verifier_type: exact_match
+  metadata:
+    bug_type: wrong-operator
+    fix_line: "<= 90"
+
+- id: BF-007
+  title: Missing return statement
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to return the final price
+        after applying a discount, but it contains exactly one bug.
+
+        Find the bug and fix it.
+
+        ```python
+        def compute_discount(price: float, is_member: bool, discount_pct: float) -> float:
+            if is_member:
+                discount_pct *= 1.5
+            discounted = price * (1 - discount_pct)
+            discounted  # BUG: forgot to return the value
+        ```
+
+  max_tokens: 512
+  difficulty: easy
+  capability_tags: [code-debugging, syntax]
+  verifier_type: exact_match
+  metadata:
+    bug_type: missing-return
+    fix_line: "return discounted"
+
+- id: BF-008
+  title: Float precision error
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to return the change due
+        rounded to 2 decimal places, but it contains exactly one bug.
+
+        Find the bug and fix it.
+
+        ```python
+        def calculate_change(amount_tendered: float, total_cost: float) -> float:
+            change = amount_tendered - total_cost
+            return change  # BUG: floating-point imprecision; should round
+        ```
+
+  max_tokens: 512
+  difficulty: easy
+  capability_tags: [code-debugging, float-precision]
+  verifier_type: exact_match
+  metadata:
+    bug_type: float-precision
+    fix_line: "round(change, 2)"
+
+- id: BF-009
+  title: Infinite loop potential
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to return the index of
+        the first positive number in a list, or None if no positive number exists, but
+        it contains exactly one bug.
+
+        Find the bug and fix it.
+
+        ```python
+        def find_first_positive(numbers: list[int]) -> int | None:
+            idx = 0
+            while numbers[idx] <= 0:  # BUG: idx never advances properly
+                idx += 1
+            return idx
+        ```
+
+  max_tokens: 512
+  difficulty: medium
+  capability_tags: [code-debugging, loop-control]
+  verifier_type: exact_match
+  metadata:
+    bug_type: infinite-loop
+    fix_line: "for idx, num in enumerate(numbers):"
+
+- id: BF-010
+  title: Incorrect sort order
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to return the k largest
+        values in descending order, but it contains exactly one bug.
+
+        Find the bug and fix it.
+
+        ```python
+        def top_k_largest(values: list[int], k: int) -> list[int]:
+            sorted_vals = sorted(values, reverse=False)  # BUG: should be True
+            return sorted_vals[:k]
+        ```
+
+  max_tokens: 512
+  difficulty: easy
+  capability_tags: [code-debugging, sorting]
+  verifier_type: exact_match
+  metadata:
+    bug_type: wrong-sort-order
+    fix_line: "reverse=True"
+
+- id: BF-011
+  title: Regex boundary error
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to extract a domain from
+        a URL, but it contains exactly one bug that could cause it to match partial
+        domain-like strings.
+
+        Find the bug and fix it.
+
+        ```python
+        import re
+
+        def extract_domain(url: str) -> str:
+            match = re.search(r'[A-Za-z0-9.-]+\\.[A-Za-z]{2,}', url)  # BUG: no boundary
+            return match.group(0) if match else ""
+        ```
+
+  max_tokens: 512
+  difficulty: medium
+  capability_tags: [code-debugging, regex]
+  verifier_type: exact_match
+  metadata:
+    bug_type: regex-boundary
+    fix_line: "word-boundary or scheme prefix"
+
+- id: BF-012
+  title: Uninitialized variable — division by zero
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to return the average of
+        a list of numbers, but it contains exactly one bug related to missing edge case.
+
+        Find the bug and fix it.
+
+        ```python
+        def compute_average(numbers: list[float]) -> float:
+            total = 0
+            for num in numbers:
+                total += num
+            return total / len(numbers)  # BUG: zero division if empty
+        ```
+
+  max_tokens: 512
+  difficulty: easy
+  capability_tags: [code-debugging, edge-cases]
+  verifier_type: exact_match
+  metadata:
+    bug_type: uninitialized-variable
+    fix_line: "if not numbers: return 0.0"
+
+- id: BF-013
+  title: Wrong mutable default argument
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to append an item to a
+        list and return it. The buggy version uses a mutable default argument which
+        causes state to persist between calls.
+
+        Find the bug and fix it.
+
+        ```python
+        def safe_append_default(item: str, target_list: list = []) -> list:
+            target_list.append(item)
+            return target_list
+        ```
+
+  max_tokens: 512
+  difficulty: medium
+  capability_tags: [code-debugging, python-traps]
+  verifier_type: exact_match
+  metadata:
+    bug_type: wrong-default-argument
+    fix_line: "= None"
+
+- id: BF-014
+  title: String encoding issue
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to count characters in
+        a string, but it assumes ASCII encoding which will crash on non-ASCII text.
+
+        Find the bug and fix it.
+
+        ```python
+        def buggy_count_chars(text: str) -> dict[str, int]:
+            result = {}
+            for byte in text.encode("ascii"):  # BUG: crashes on non-ASCII chars
+                char = chr(byte)
+                result[char] = result.get(char, 0) + 1
+            return result
+        ```
+
+  max_tokens: 512
+  difficulty: medium
+  capability_tags: [code-debugging, encoding]
+  verifier_type: exact_match
+  metadata:
+    bug_type: string-encoding
+    fix_line: "for char in text:"
+
+- id: BF-015
+  title: Race condition in counter
+  messages:
+    - role: user
+      content: |
+        Analyze the following Python function. It is supposed to atomically increment
+        a shared counter and return the new value, but it has a race condition.
+
+        Find the bug and fix it. Use a threading lock.
+
+        ```python
+        import time
+
+        def increment_and_return(shared_state: dict) -> int:
+            current = shared_state["counter"]
+            time.sleep(0.001)  # Simulates context switch / race window
+            shared_state["counter"] = current + 1  # BUG: non-atomic read-modify-write
+            return shared_state["counter"]
+        ```
+
+  max_tokens: 512
+  difficulty: hard
+  capability_tags: [code-debugging, concurrency]
+  verifier_type: exact_match
+  metadata:
+    bug_type: race-condition
+    fix_line: "threading.Lock()"

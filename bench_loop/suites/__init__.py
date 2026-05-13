@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from bench_loop.suites.agent import AgentSuite
+from bench_loop.suites.bf_suite import BFSuite
 from bench_loop.suites.coding import CodingSuite
 from bench_loop.suites.dataextract import DataExtractSuite
 from bench_loop.suites.instructfollow import InstructFollowSuite
@@ -19,6 +20,7 @@ SUITE_REGISTRY = {
     "reasonmath": ReasonMathSuite,
     "coding": CodingSuite,
     "agent": AgentSuite,
+    "bf": BFSuite,
 }
 
 DEFAULT_SUITES = [
@@ -32,6 +34,7 @@ DEFAULT_SUITES = [
 
 __all__ = [
     "AgentSuite",
+    "BFSuite",
     "CodingSuite",
     "DataExtractSuite",
     "DEFAULT_SUITES",
