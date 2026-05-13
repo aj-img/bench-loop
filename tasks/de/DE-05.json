@@ -1,0 +1,53 @@
+{
+  "id": "DE-05",
+  "category": "A",
+  "difficulty": "easy",
+  "title": "Online Order Confirmation",
+  "input": "Thank you for your order!\nOrder #SHP-2026-048912\nDate: May 2, 2026\n\nItems ordered:\n1. NoiseCancel Pro Headphones — Black — $249.99 × 1 = $249.99\n2. USB-C Charging Cable (6ft) — White — $12.99 × 2 = $25.98\n3. Carrying Case — Gray — $34.99 × 1 = $34.99\n\nSubtotal: $310.96\nShipping: FREE (Prime member)\nTax: $25.55\nTotal charged: $336.51\n\nPayment: Visa ****3742\nShipping to: 1425 Elm Street, Apartment 3B, San Jose, CA 95112\nEstimated delivery: May 5-7, 2026\nTracking: https://track.example.com/SHP-2026-048912",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "order_number": {"type": "string"},
+      "order_date": {"type": "string"},
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {"type": "string"},
+            "color": {"type": "string"},
+            "price_each": {"type": "number"},
+            "quantity": {"type": "number"},
+            "line_total": {"type": "number"}
+          }
+        }
+      },
+      "subtotal": {"type": "number"},
+      "shipping": {"type": "string"},
+      "tax": {"type": "number"},
+      "total": {"type": "number"},
+      "payment_method": {"type": "string"},
+      "shipping_address": {"type": "string"},
+      "estimated_delivery": {"type": "string"},
+      "tracking_url": {"type": "string"}
+    },
+    "required": ["order_number", "order_date", "items", "total"]
+  },
+  "ground_truth": {
+    "order_number": "SHP-2026-048912",
+    "order_date": "May 2, 2026",
+    "items": [
+      {"name": "NoiseCancel Pro Headphones", "color": "Black", "price_each": 249.99, "quantity": 1, "line_total": 249.99},
+      {"name": "USB-C Charging Cable (6ft)", "color": "White", "price_each": 12.99, "quantity": 2, "line_total": 25.98},
+      {"name": "Carrying Case", "color": "Gray", "price_each": 34.99, "quantity": 1, "line_total": 34.99}
+    ],
+    "subtotal": 310.96,
+    "shipping": "FREE",
+    "tax": 25.55,
+    "total": 336.51,
+    "payment_method": "Visa ****3742",
+    "shipping_address": "1425 Elm Street, Apartment 3B, San Jose, CA 95112",
+    "estimated_delivery": "May 5-7, 2026",
+    "tracking_url": "https://track.example.com/SHP-2026-048912"
+  }
+}

@@ -5,6 +5,7 @@ from bench_loop.suites.agent import AgentSuite
 from bench_loop.suites.bf_suite import BFSuite
 from bench_loop.suites.coding import CodingSuite
 from bench_loop.suites.dataextract import DataExtractSuite
+from bench_loop.suites.de_suite import DE15Suite
 from bench_loop.suites.instructfollow import InstructFollowSuite
 from bench_loop.suites.reasonmath import ReasonMathSuite
 from bench_loop.suites.speed import SpeedSuite
@@ -16,6 +17,7 @@ SUITE_REGISTRY = {
     "speed": SpeedSuite,
     "toolcall": ToolCallSuite,
     "dataextract": DataExtractSuite,
+    "de15": DE15Suite,
     "instructfollow": InstructFollowSuite,
     "reasonmath": ReasonMathSuite,
     "coding": CodingSuite,
@@ -37,6 +39,7 @@ __all__ = [
     "BFSuite",
     "CodingSuite",
     "DataExtractSuite",
+    "DE15Suite",
     "DEFAULT_SUITES",
     "InstructFollowSuite",
     "ReasonMathSuite",

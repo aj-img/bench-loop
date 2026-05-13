@@ -1,0 +1,37 @@
+{
+  "id": "DE-04",
+  "category": "A",
+  "difficulty": "easy",
+  "title": "Restaurant Review",
+  "input": "★★★★☆ (4/5)\nReview of The Golden Ramen\nBy: FoodieMike on April 20, 2026\n\nVisited during lunch rush on Saturday. The miso ramen was rich and flavorful with perfectly soft-boiled eggs. The gyoza appetizer was crispy but a bit small for the price of $8.95.\n\nService was slow — waited 25 minutes for our table of two even with a reservation. My tonkotsu ramen had a great broth but the noodles were slightly overcooked.\n\nTotal bill was $47.30 for two people including tip. Location is at 567 Castro St, Mountain View.\n\nWould come back but maybe for dinner instead of lunch.",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "restaurant_name": {"type": "string"},
+      "reviewer": {"type": "string"},
+      "review_date": {"type": "string"},
+      "rating": {"type": "number"},
+      "visit_day": {"type": "string"},
+      "visit_time": {"type": "string"},
+      "order_items": {"type": "array", "items": {"type": "string"}},
+      "wait_time_minutes": {"type": "number"},
+      "total_bill": {"type": "number"},
+      "party_size": {"type": "number"},
+      "location": {"type": "string"}
+    },
+    "required": ["restaurant_name", "rating", "total_bill", "location"]
+  },
+  "ground_truth": {
+    "restaurant_name": "The Golden Ramen",
+    "reviewer": "FoodieMike",
+    "review_date": "April 20, 2026",
+    "rating": 4,
+    "visit_day": "Saturday",
+    "visit_time": "lunch",
+    "order_items": ["miso ramen", "gyoza appetizer", "tonkotsu ramen"],
+    "wait_time_minutes": 25,
+    "total_bill": 47.30,
+    "party_size": 2,
+    "location": "567 Castro St, Mountain View"
+  }
+}

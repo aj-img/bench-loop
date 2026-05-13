@@ -1,0 +1,35 @@
+{
+  "id": "DE-01",
+  "category": "A",
+  "difficulty": "easy",
+  "title": "Simple Business Card",
+  "input": "Dr. Elena Vasquez, M.D.\nCardiologist\nHeartCare Medical Group\n2200 Pacific Avenue, Suite 410\nSan Francisco, CA 94115\nPhone: (415) 555-0198\nFax: (415) 555-0199\nEmail: elena.vasquez@heartcaremed.com\nWebsite: www.heartcaremed.com",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "full_name": {"type": "string"},
+      "specialty": {"type": "string"},
+      "practice_name": {"type": "string"},
+      "address": {"type": "string"},
+      "city": {"type": "string"},
+      "state": {"type": "string"},
+      "zip_code": {"type": "string"},
+      "phone": {"type": "string"},
+      "email": {"type": "string"},
+      "website": {"type": "string"}
+    },
+    "required": ["full_name", "specialty", "practice_name", "phone", "email"]
+  },
+  "ground_truth": {
+    "full_name": "Dr. Elena Vasquez, M.D.",
+    "specialty": "Cardiologist",
+    "practice_name": "HeartCare Medical Group",
+    "address": "2200 Pacific Avenue, Suite 410",
+    "city": "San Francisco",
+    "state": "CA",
+    "zip_code": "94115",
+    "phone": "(415) 555-0198",
+    "email": "elena.vasquez@heartcaremed.com",
+    "website": "www.heartcaremed.com"
+  }
+}

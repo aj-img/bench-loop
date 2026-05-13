@@ -1,0 +1,108 @@
+{
+  "id": "DE-13",
+  "category": "C",
+  "difficulty": "hard",
+  "title": "Clinical Trial Enrollment Summary",
+  "input": "PHASE III CLINICAL TRIAL — PROTOCOL CT-2026-048\nStudy: Efficacy of NOV-7742 in Type 2 Diabetes Management\nSponsor: Novagen Pharmaceuticals\nSite: Stanford Clinical Research Center (Site Lead: Dr. Amara Osei)\n\nENROLLMENT STATUS AS OF May 8, 2026:\n\nINCLUSION CRITERIA:\n  1. Age 30-75\n  2. HbA1c between 7.0% and 10.5%\n  3. Currently on metformin monotherapy for ≥3 months\n  4. BMI ≥25 and ≤42\n  5. Willing to attend all follow-up visits\n\nEXCLUSION CRITERIA:\n  1. History of DKA in past 12 months\n  2. eGFR < 45 mL/min/1.73m²\n  3. Chronic liver disease (Child-Pugh B or C)\n  4. Taking SGLT2 inhibitors within 30 days of screening\n  5. Pregnant or breastfeeding\n\nSCREENING RESULTS (First 85 patients):\n  Screened: 85\n  Enrolled: 67\n  Failed screening: 18\n    — HbA1c too low (<7.0%): 5\n    — HbA1c too high (>10.5%): 3\n    — BMI out of range: 4\n    — On excluded medication (SGLT2i): 3\n    — DKA history: 2\n    — eGFR below threshold: 1\n    — Other (liver disease): 0\n    — Other (pregnancy): 0\n\nENROLLED PATIENTS DEMOGRAPHICS:\n  Mean age: 58.3 years (SD 9.7)\n  Female: 34 (50.7%)\n  Male: 33 (49.3%)\n  Mean baseline HbA1c: 8.42% (SD 0.89)\n  Mean BMI: 33.1 (SD 4.2)\n  Mean duration of diabetes: 6.8 years (SD 4.1)\n  Baseline metformin dose: mean 2,100 mg/day\n\nADVERSE EVENTS (reported by 67 enrolled):\n  Mild: 23 patients (34.3%)\n    — GI upset: 12\n    — Headache: 7\n    — Fatigue: 4\n  Moderate: 8 patients (11.9%)\n    — Hypoglycemia: 5\n    — Elevated liver enzymes: 3\n  Severe: 1 patient (1.5%)\n    — DKA (resolved): 1\n    — Contributing factors: non-compliance with metformin dose, consumed alcohol during 4th week\n\nDISCONTINuations: 3 patients dropped out\n  — Relocated: 1\n  — Adverse event (moderate hypoglycemia): 1\n  — Lost to follow-up: 1\n\nRemaining enrolled: 64",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "trial_protocol": {"type": "string"},
+      "study_name": {"type": "string"},
+      "drug_name": {"type": "string"},
+      "sponsor": {"type": "string"},
+      "site": {"type": "string"},
+      "site_lead": {"type": "string"},
+      "status_date": {"type": "string"},
+      "enrollment": {
+        "type": "object",
+        "properties": {
+          "screened": {"type": "number"},
+          "enrolled": {"type": "number"},
+          "failed_screening": {"type": "number"},
+          "remaining_enrolled": {"type": "number"},
+          "discontinued": {"type": "number"},
+          "discontinuation_reasons": {
+            "type": "array",
+            "items": {"type": "object", "properties": {"reason": {"type": "string"}, "count": {"type": "number"}}}
+          }
+        }
+      },
+      "screening_failures": {
+        "type": "array",
+        "items": {"type": "object", "properties": {"reason": {"type": "string"}, "count": {"type": "number"}}}
+      },
+      "demographics": {
+        "type": "object",
+        "properties": {
+          "mean_age": {"type": "number"},
+          "age_sd": {"type": "number"},
+          "female_count": {"type": "number"},
+          "male_count": {"type": "number"},
+          "female_pct": {"type": "number"},
+          "mean_hba1c": {"type": "number"},
+          "hba1c_sd": {"type": "number"},
+          "mean_bmi": {"type": "number"},
+          "bmi_sd": {"type": "number"},
+          "mean_diabetes_duration_years": {"type": "number"},
+          "diabetes_duration_sd": {"type": "number"},
+          "mean_metformin_mg_per_day": {"type": "number"}
+        }
+      },
+      "adverse_events": {
+        "type": "object",
+        "properties": {
+          "mild_count": {"type": "number"},
+          "mild_pct": {"type": "number"},
+          "mild_details": {"type": "array", "items": {"type": "string"}},
+          "moderate_count": {"type": "number"},
+          "moderate_pct": {"type": "number"},
+          "moderate_details": {"type": "array", "items": {"type": "string"}},
+          "severe_count": {"type": "number"},
+          "severe_details": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "required": ["trial_protocol", "drug_name", "enrollment", "demographics", "adverse_events"]
+  },
+  "ground_truth": {
+    "trial_protocol": "CT-2026-048",
+    "study_name": "Efficacy of NOV-7742 in Type 2 Diabetes Management",
+    "drug_name": "NOV-7742",
+    "sponsor": "Novagen Pharmaceuticals",
+    "site": "Stanford Clinical Research Center",
+    "site_lead": "Dr. Amara Osei",
+    "status_date": "May 8, 2026",
+    "enrollment": {
+      "screened": 85, "enrolled": 67, "failed_screening": 18, "remaining_enrolled": 64, "discontinued": 3,
+      "discontinuation_reasons": [
+        {"reason": "Relocated", "count": 1},
+        {"reason": "Adverse event (moderate hypoglycemia)", "count": 1},
+        {"reason": "Lost to follow-up", "count": 1}
+      ]
+    },
+    "screening_failures": [
+      {"reason": "HbA1c too low (<7.0%)", "count": 5},
+      {"reason": "HbA1c too high (>10.5%)", "count": 3},
+      {"reason": "BMI out of range", "count": 4},
+      {"reason": "On excluded medication (SGLT2i)", "count": 3},
+      {"reason": "DKA history", "count": 2},
+      {"reason": "eGFR below threshold", "count": 1}
+    ],
+    "demographics": {
+      "mean_age": 58.3, "age_sd": 9.7,
+      "female_count": 34, "male_count": 33, "female_pct": 50.7,
+      "mean_hba1c": 8.42, "hba1c_sd": 0.89,
+      "mean_bmi": 33.1, "bmi_sd": 4.2,
+      "mean_diabetes_duration_years": 6.8, "diabetes_duration_sd": 4.1,
+      "mean_metformin_mg_per_day": 2100
+    },
+    "adverse_events": {
+      "mild_count": 23, "mild_pct": 34.3,
+      "mild_details": ["GI upset: 12", "Headache: 7", "Fatigue: 4"],
+      "moderate_count": 8, "moderate_pct": 11.9,
+      "moderate_details": ["Hypoglycemia: 5", "Elevated liver enzymes: 3"],
+      "severe_count": 1, "severe_details": ["DKA (resolved) — contributing factors: non-compliance with metformin dose, consumed alcohol during 4th week"]
+    }
+  }
+}

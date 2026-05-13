@@ -1,0 +1,101 @@
+{
+  "id": "DE-12",
+  "category": "C",
+  "difficulty": "hard",
+  "title": "Multi-Page Lease Agreement with Addenda",
+  "input": "RESIDENTIAL LEASE AGREEMENT\n\nProperty: 1247 Elm Street, Unit 4B, Berkeley, CA 94708\nLandlord: Oakridge Properties LLC (Trustee: Richard Tanaka)\nTenant: Alexandra \"Alex\" Moreau\nLease Term: September 1, 2026 through August 31, 2028\n\nRENT:\n  Base rent: $2,850/month\n  Rent due: 1st of each month\n  Late fee: 5% after 5-day grace period\n  Accepted payments: Bank transfer, certified check\n\nSECURITY DEPOSIT:\n  Amount: $5,700 (two months' rent)\n  Held at: Bay Area Trust Company, Account #T-44912\n  Return within 21 days of vacancy\n\nUTILITIES:\n  Included in rent: Water, garbage, landscaping\n  Tenant responsible: Electricity, gas, internet, renter's insurance\n  Electric provider preferred: PG&E\n  Internet minimum speed: 100 Mbps\n\nPETS:\n  Cats: 1 cat allowed. $500 non-refundable pet deposit. $75/month pet rent.\n  Dogs: Not permitted. No exceptions without 3-party landlord/board approval.\n  Breed restrictions: None for cats. Weight limit 15 lbs for cats.\n  Pet agreement required at move-in.\n\nPARKING:\n  One assigned space #12 in the underground garage.\n  Additional visitor parking: guest spaces only, 4-hour limit.\n  EV charging available in spaces #10-#14 (premium $45/month).\n  Tenant may lease additional space for $125/month.\n\nMAINTENANCE:\n  Landlord handles: structural, plumbing, electrical, HVAC\n  Tenant handles: light bulb replacement, AC filter changes quarterly\n  Emergency maintenance: 24/7 hotline (888-555-0199)\n  Response SLA: 24 hours for emergency, 72 hours for routine\n  Tenant must report: water leaks within 4 hours\n\nRULES:\n  Quiet hours: 10 PM – 7 AM weekdays, 11 PM – 8 AM weekends\n  No subletting without 30-day written consent\n  Short-term rentals (Airbnb) prohibited — max 14 consecutive nights\n  Renovations require written approval; no permanent alterations\n\nADDENDUM A — RENTER'S INSURANCE:\n  Minimum coverage: $100,000 personal property, $300,000 liability\n  Provider must be licensed in California\n  Landlord to be listed as additional insured\n\nADDENDUM B — BUILDING AMENITIES:\n  Rooftop terrace (shared), bike storage, package room\n  Gym access via Oakridge Fitness member portal\n  Mailroom and 24/7 lobby concierge\n\nSigned: _____________ (Landlord)      _____________ (Tenant)\nDate: July 15, 2026",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "property_address": {"type": "string"},
+      "landlord_entity": {"type": "string"},
+      "landlord_trustee": {"type": "string"},
+      "tenant_name": {"type": "string"},
+      "lease_start": {"type": "string"},
+      "lease_end": {"type": "string"},
+      "rent": {
+        "type": "object",
+        "properties": {
+          "monthly": {"type": "number"},
+          "due_day": {"type": "number"},
+          "late_fee_percentage": {"type": "number"},
+          "grace_period_days": {"type": "number"},
+          "accepted_payments": {"type": "array", "items": {"type": "string"}}
+        }
+      },
+      "security_deposit": {"type": "number"},
+      "security_deposit_held_at": {"type": "string"},
+      "security_deposit_return_days": {"type": "number"},
+      "utilities_included": {"type": "array", "items": {"type": "string"}},
+      "utilities_tenant_responsible": {"type": "array", "items": {"type": "string"}},
+      "pet_policy": {
+        "type": "object",
+        "properties": {
+          "cats_allowed": {"type": "boolean"},
+          "cat_limit": {"type": "number"},
+          "cat_deposit": {"type": "number"},
+          "cat_monthly_rent": {"type": "number"},
+          "cat_weight_limit_lbs": {"type": "number"},
+          "dogs_allowed": {"type": "boolean"}
+        }
+      },
+      "parking": {
+        "type": "object",
+        "properties": {
+          "assigned_space": {"type": "string"},
+          "visitor_limit_hours": {"type": "number"},
+          "ev_charging_spaces": {"type": "string"},
+          "ev_charging_premium_monthly": {"type": "number"},
+          "additional_space_monthly": {"type": "number"}
+        }
+      },
+      "quiet_hours_weekday": {"type": "string"},
+      "quiet_hours_weekend": {"type": "string"},
+      "subletting_policy": {"type": "string"},
+      "short_term_rental_max_nights": {"type": "number"},
+      "emergency_maintenance_phone": {"type": "string"},
+      "emergency_response_hours": {"type": "number"},
+      "routine_response_hours": {"type": "number"},
+      "insurance_min_personal_property": {"type": "number"},
+      "insurance_min_liability": {"type": "number"},
+      "building_amenities": {"type": "array", "items": {"type": "string"}},
+      "signed_date": {"type": "string"}
+    },
+    "required": ["property_address", "tenant_name", "lease_start", "lease_end", "rent", "pet_policy"]
+  },
+  "ground_truth": {
+    "property_address": "1247 Elm Street, Unit 4B, Berkeley, CA 94708",
+    "landlord_entity": "Oakridge Properties LLC",
+    "landlord_trustee": "Richard Tanaka",
+    "tenant_name": "Alexandra \"Alex\" Moreau",
+    "lease_start": "September 1, 2026",
+    "lease_end": "August 31, 2028",
+    "rent": {
+      "monthly": 2850, "due_day": 1, "late_fee_percentage": 5, "grace_period_days": 5,
+      "accepted_payments": ["Bank transfer", "certified check"]
+    },
+    "security_deposit": 5700,
+    "security_deposit_held_at": "Bay Area Trust Company, Account #T-44912",
+    "security_deposit_return_days": 21,
+    "utilities_included": ["Water", "garbage", "landscaping"],
+    "utilities_tenant_responsible": ["Electricity", "gas", "internet", "renter's insurance"],
+    "pet_policy": {
+      "cats_allowed": true, "cat_limit": 1, "cat_deposit": 500, "cat_monthly_rent": 75, "cat_weight_limit_lbs": 15, "dogs_allowed": false
+    },
+    "parking": {
+      "assigned_space": "#12", "visitor_limit_hours": 4,
+      "ev_charging_spaces": "#10-#14", "ev_charging_premium_monthly": 45, "additional_space_monthly": 125
+    },
+    "quiet_hours_weekday": "10 PM – 7 AM",
+    "quiet_hours_weekend": "11 PM – 8 AM",
+    "subletting_policy": "No subletting without 30-day written consent",
+    "short_term_rental_max_nights": 14,
+    "emergency_maintenance_phone": "888-555-0199",
+    "emergency_response_hours": 24,
+    "routine_response_hours": 72,
+    "insurance_min_personal_property": 100000,
+    "insurance_min_liability": 300000,
+    "building_amenities": ["Rooftop terrace (shared)", "bike storage", "package room", "Gym access via Oakridge Fitness member portal", "Mailroom and 24/7 lobby concierge"],
+    "signed_date": "July 15, 2026"
+  }
+}

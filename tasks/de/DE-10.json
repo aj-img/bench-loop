@@ -1,0 +1,85 @@
+{
+  "id": "DE-10",
+  "category": "B",
+  "difficulty": "medium",
+  "title": "Team Roster and Performance Stats",
+  "input": "─ OAKLAND RAYZ — 2026 SEASON ROSTER ─\n\nHead Coach: Maria Santos (5th season)\nAssistant Coaches: James Park, Yuki Tanaka\n\n─── STARTING LINEUP ───\n\n#7 — Central Midfield — Alexei Volkov (Bulgaria)\n   Appearances: 18 | Goals: 4 | Assists: 9 | Yellow Cards: 2 | Red Cards: 0\n   Transfer Fee: €4.2M from CSKA Sofia | Contract: 2024–2028\n   Height: 183cm | Preferred Foot: Right\n\n#11 — Right Wing — Daniel Okonkwo (Nigeria)\n   Appearances: 20 | Goals: 11 | Assists: 6 | Yellow Cards: 3 | Red Cards: 0\n   Transfer Fee: €7.5M from Sporting CP | Contract: 2025–2029\n   Height: 176cm | Preferred Foot: Left\n\n#9 — Striker — Luca Ferrini (Italy)\n   Appearances: 19 | Goals: 14 | Assists: 3 | Yellow Cards: 4 | Red Cards: 1\n   Transfer Fee: €12.0M from AC Milan | Contract: 2023–2027\n   Height: 188cm | Preferred Foot: Right\n\n#4 — Center Back — Kofi Mensah (Ghana)\n   Appearances: 22 | Goals: 1 | Assists: 0 | Yellow Cards: 5 | Red Cards: 0\n   Transfer Fee: Free transfer from Real Sociedad B | Contract: 2024–2026\n   Height: 191cm | Preferred Foot: Left\n\n#1 — Goalkeeper — Hiroshi Yamamoto (Japan)\n   Appearances: 20 | Goals: 0 | Assists: 0 | Yellow Cards: 1 | Red Cards: 0\n   Clean Sheets: 8 | Goals Conceded: 22 | Saves: 67\n   Transfer Fee: €2.8M from Kyoto Sanga | Contract: 2025–2028\n   Height: 185cm | Preferred Foot: Right\n\n─── RESERVES ───\n\n#22 — Central Midfield — Samir Al-Rashid (Lebanon)\n   Appearances: 12 | Goals: 1 | Assists: 4\n   Transfer Fee: €1.5M from Beirut SC | Contract: 2025–2027\n\n#27 — Center Back — Cole Brennan (Ireland)\n   Appearances: 8 | Goals: 0 | Assists: 0\n   Transfer Fee: Academy graduate | Contract: 2024–2026\n\nClub Captain: Luca Ferrini\nVice Captain: Kofi Mensah",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "team_name": {"type": "string"},
+      "season": {"type": "string"},
+      "head_coach": {"type": "string"},
+      "assistant_coaches": {"type": "array", "items": {"type": "string"}},
+      "players": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "jersey_number": {"type": "number"},
+            "position": {"type": "string"},
+            "name": {"type": "string"},
+            "nationality": {"type": "string"},
+            "appearances": {"type": "number"},
+            "goals": {"type": "number"},
+            "assists": {"type": "number"},
+            "yellow_cards": {"type": "number"},
+            "red_cards": {"type": "number"},
+            "transfer_fee_eur": {"type": "number"},
+            "contract_until": {"type": "number"},
+            "height_cm": {"type": "number"},
+            "preferred_foot": {"type": "string"}
+          }
+        }
+      },
+      "club_captain": {"type": "string"},
+      "vice_captain": {"type": "string"}
+    },
+    "required": ["team_name", "season", "head_coach", "players"]
+  },
+  "ground_truth": {
+    "team_name": "OAKLAND RAYZ",
+    "season": "2026",
+    "head_coach": "Maria Santos",
+    "assistant_coaches": ["James Park", "Yuki Tanaka"],
+    "players": [
+      {
+        "jersey_number": 7, "position": "Central Midfield", "name": "Alexei Volkov", "nationality": "Bulgaria",
+        "appearances": 18, "goals": 4, "assists": 9, "yellow_cards": 2, "red_cards": 0,
+        "transfer_fee_eur": 4.2, "contract_until": 2028, "height_cm": 183, "preferred_foot": "Right"
+      },
+      {
+        "jersey_number": 11, "position": "Right Wing", "name": "Daniel Okonkwo", "nationality": "Nigeria",
+        "appearances": 20, "goals": 11, "assists": 6, "yellow_cards": 3, "red_cards": 0,
+        "transfer_fee_eur": 7.5, "contract_until": 2029, "height_cm": 176, "preferred_foot": "Left"
+      },
+      {
+        "jersey_number": 9, "position": "Striker", "name": "Luca Ferrini", "nationality": "Italy",
+        "appearances": 19, "goals": 14, "assists": 3, "yellow_cards": 4, "red_cards": 1,
+        "transfer_fee_eur": 12.0, "contract_until": 2027, "height_cm": 188, "preferred_foot": "Right"
+      },
+      {
+        "jersey_number": 4, "position": "Center Back", "name": "Kofi Mensah", "nationality": "Ghana",
+        "appearances": 22, "goals": 1, "assists": 0, "yellow_cards": 5, "red_cards": 0,
+        "transfer_fee_eur": 0.0, "contract_until": 2026, "height_cm": 191, "preferred_foot": "Left"
+      },
+      {
+        "jersey_number": 1, "position": "Goalkeeper", "name": "Hiroshi Yamamoto", "nationality": "Japan",
+        "appearances": 20, "goals": 0, "assists": 0, "yellow_cards": 1, "red_cards": 0,
+        "transfer_fee_eur": 2.8, "contract_until": 2028, "height_cm": 185, "preferred_foot": "Right"
+      },
+      {
+        "jersey_number": 22, "position": "Central Midfield", "name": "Samir Al-Rashid", "nationality": "Lebanon",
+        "appearances": 12, "goals": 1, "assists": 4, "yellow_cards": 0, "red_cards": 0,
+        "transfer_fee_eur": 1.5, "contract_until": 2027, "height_cm": 0, "preferred_foot": ""
+      },
+      {
+        "jersey_number": 27, "position": "Center Back", "name": "Cole Brennan", "nationality": "Ireland",
+        "appearances": 8, "goals": 0, "assists": 0, "yellow_cards": 0, "red_cards": 0,
+        "transfer_fee_eur": 0.0, "contract_until": 2026, "height_cm": 0, "preferred_foot": ""
+      }
+    ],
+    "club_captain": "Luca Ferrini",
+    "vice_captain": "Kofi Mensah"
+  }
+}
