@@ -68,10 +68,44 @@ def info() -> None:
     "--harness",
     default="raw",
     show_default=True,
-    help="Harness adapter to use (e.g. raw, hermes).",
+    help="Harness adapter to use (e.g. raw, hermes, qwen, pi).",
 )
-def run(model: str, endpoint: str, provider: str, suites: str, harness: str) -> None:
+@click.option(
+    "--hardware",
+    default=None,
+    help="Hardware label stamped on the run (e.g. 'NVIDIA RTX 4090 24GB'). Useful when benchmarking through a tunnel.",
+)
+@click.option(
+    "--gpu",
+    default=None,
+    help="GPU name override (e.g. 'NVIDIA RTX 4090').",
+)
+@click.option(
+    "--gpu-memory-gb",
+    default=None,
+    type=float,
+    help="GPU memory in GB to stamp on the run.",
+)
+def run(
+    model: str,
+    endpoint: str,
+    provider: str,
+    suites: str,
+    harness: str,
+    hardware: str | None,
+    gpu: str | None,
+    gpu_memory_gb: float | None,
+) -> None:
     """Run a benchmark."""
+    # Surface CLI hardware overrides to detect_hardware() via env vars so the
+    # whole detection pipeline picks them up without threading another arg.
+    if hardware:
+        os.environ["BENCHLOOP_HARDWARE_LABEL"] = hardware
+    if gpu:
+        os.environ["BENCHLOOP_GPU"] = gpu
+    if gpu_memory_gb is not None:
+        os.environ["BENCHLOOP_GPU_MEMORY_GB"] = str(gpu_memory_gb)
+
     selected_suites = [item.strip() for item in suites.split(",") if item.strip()]
     try:
         benchmark = asyncio.run(
@@ -213,63 +247,88 @@ def export(output: str | None, include_all: bool) -> None:
 
 @main.command()
 @click.option("--host", default="127.0.0.1", show_default=True)
-@click.option("--api-port", default=8877, show_default=True, type=int)
-@click.option("--ui-port", default=5180, show_default=True, type=int)
-@click.option("--api-only", is_flag=True, help="Only start the API; serve the UI yourself.")
-def dashboard(host: str, api_port: int, ui_port: int, api_only: bool) -> None:
+@click.option("--port", "port", default=8877, show_default=True, type=int, help="Port for the dashboard (API + UI).")
+@click.option("--api-port", default=None, type=int, help="DEPRECATED. Same as --port; kept for compatibility.")
+@click.option("--ui-port", default=None, type=int, help="DEPRECATED. UI is now served by the API.")
+@click.option("--api-only", is_flag=True, help="Legacy flag, no-op now that UI is bundled.")
+@click.option("--dev/--no-dev", default=False, help="Use the sibling bench-loop-web repo with hot-reload (developer mode).")
+def dashboard(host: str, port: int, api_port: int | None, ui_port: int | None, api_only: bool, dev: bool) -> None:
     """Launch the local web dashboard.
 
-    Looks for the BenchLoop web app at $BENCHLOOP_WEB_DIR (default: ../bench-loop-web).
-    If the bundled web app cannot be located, just run the API and tell the user
-    where to clone the web app.
+    By default this runs the bundled FastAPI + React app that ships inside the
+    benchloop-cli wheel — no extra clone or `make dev` needed.
+
+    Pass --dev to attach to a sibling `bench-loop-web/` repo for hot-reload
+    (Vite UI + uvicorn --reload).
     """
     import shutil
     import subprocess
+    import webbrowser
 
-    web_dir = Path(os.environ.get(
-        "BENCHLOOP_WEB_DIR",
-        Path(__file__).resolve().parent.parent.parent / "bench-loop-web",
-    )).resolve()
-    api_dir = web_dir / "api"
-    ui_dir = web_dir / "ui"
+    if api_port is not None:
+        port = api_port  # back-compat
+    _ = ui_port  # ignored; bundled mode serves UI on `port`
+    _ = api_only  # ignored; bundled mode is single-process
 
-    if not api_dir.is_dir():
-        click.echo(
-            f"Web API not found at {api_dir}.\n"
-            "Clone https://github.com/outsourc-e/bench-loop-web alongside this repo,\n"
-            "or set $BENCHLOOP_WEB_DIR.",
-            err=True,
-        )
-        sys.exit(1)
-
-    env = os.environ.copy()
-    env["BENCH_LOOP_DIR"] = str(Path(__file__).resolve().parent.parent)
-    env["PYTHONPATH"] = env["BENCH_LOOP_DIR"] + os.pathsep + env.get("PYTHONPATH", "")
-
-    api_proc = subprocess.Popen(
-        [
-            sys.executable,
-            "-m",
-            "uvicorn",
-            "main:app",
-            "--host", host,
-            "--port", str(api_port),
-            "--app-dir", str(api_dir),
-        ],
-        env=env,
-    )
-    click.echo(f"BenchLoop API:  http://{host}:{api_port}")
-
-    ui_proc = None
-    if not api_only and ui_dir.is_dir() and shutil.which("npx"):
-        ui_proc = subprocess.Popen(
-            ["npx", "vite", "--host", host, "--port", str(ui_port)],
-            cwd=str(ui_dir),
+    if dev:
+        web_dir = Path(os.environ.get(
+            "BENCHLOOP_WEB_DIR",
+            Path(__file__).resolve().parent.parent.parent / "bench-loop-web",
+        )).resolve()
+        api_dir = web_dir / "api"
+        ui_dir = web_dir / "ui"
+        if not api_dir.is_dir():
+            click.echo(
+                f"--dev mode: bench-loop-web not found at {api_dir}.\n"
+                "Clone https://github.com/outsourc-e/bench-loop-web alongside this repo,\n"
+                "or set $BENCHLOOP_WEB_DIR.",
+                err=True,
+            )
+            sys.exit(1)
+        env = os.environ.copy()
+        env["BENCH_LOOP_DIR"] = str(Path(__file__).resolve().parent.parent)
+        env["PYTHONPATH"] = env["BENCH_LOOP_DIR"] + os.pathsep + env.get("PYTHONPATH", "")
+        api_proc = subprocess.Popen(
+            [sys.executable, "-m", "uvicorn", "main:app",
+             "--host", host, "--port", str(port), "--app-dir", str(api_dir), "--reload"],
             env=env,
         )
-        click.echo(f"BenchLoop UI:   http://{host}:{ui_port}")
-    elif not api_only:
-        click.echo(f"(UI skipped — vite/npx not found in PATH; run `npm install && npm run dev` in {ui_dir})")
+        click.echo(f"BenchLoop API (dev):  http://{host}:{port}")
+        ui_proc = None
+        if ui_dir.is_dir() and shutil.which("npx"):
+            ui_dev_port = ui_port or 5180
+            ui_proc = subprocess.Popen(
+                ["npx", "vite", "--host", host, "--port", str(ui_dev_port)],
+                cwd=str(ui_dir),
+                env=env,
+            )
+            click.echo(f"BenchLoop UI (vite):  http://{host}:{ui_dev_port}")
+    else:
+        # Bundled mode — use the assets shipped in the wheel.
+        api_dir = Path(__file__).resolve().parent / "dashboard" / "api"
+        ui_dir = Path(__file__).resolve().parent / "dashboard" / "ui"
+        if not api_dir.is_dir() or not (ui_dir / "index.html").exists():
+            click.echo(
+                "Bundled dashboard assets not found. Reinstall benchloop-cli, "
+                "or use `benchloop dashboard --dev` against a checkout.",
+                err=True,
+            )
+            sys.exit(1)
+        env = os.environ.copy()
+        env["BENCH_LOOP_DIR"] = str(Path(__file__).resolve().parent.parent)
+        env["PYTHONPATH"] = env["BENCH_LOOP_DIR"] + os.pathsep + env.get("PYTHONPATH", "")
+        api_proc = subprocess.Popen(
+            [sys.executable, "-m", "uvicorn", "main:app",
+             "--host", host, "--port", str(port), "--app-dir", str(api_dir)],
+            env=env,
+        )
+        url = f"http://{host}:{port}"
+        click.echo(f"BenchLoop dashboard: {url}")
+        try:
+            webbrowser.open(url, new=2)
+        except Exception:
+            pass
+        ui_proc = None
 
     try:
         api_proc.wait()

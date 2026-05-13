@@ -1,0 +1,1012 @@
+{
+  "version": "v1",
+  "generated_at": "2026-04-24T16:50:56.715041+00:00",
+  "model": "Qwen3.6-27B",
+  "entry_count": 17,
+  "entries": [
+    {
+      "schema_version": "v1",
+      "stack_id": "0d26b50cc89dda53",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": {
+        "name": "qwen3.6-0.6b",
+        "quant": "Q8"
+      },
+      "draft_params": {
+        "draft_max": 20,
+        "draft_min": null,
+        "draft_p_min": 0.55
+      },
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 8192,
+      "rope_scaling": null,
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 152.28,
+          "runs": 10,
+          "metadata": {
+            "max_tokens": 1536,
+            "repeats": 2
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 186.56,
+        "mean_tps": 152.28,
+        "median_tps": 153.96,
+        "stdev_tps": 26.54,
+        "prompt_tps_mean": 351.02
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T14:40:54.331455",
+      "tags": [
+        "speculative-decoding"
+      ],
+      "notes": "draft-0.6B-q8_dmax20-p55"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "8ad2f2a19a15e732",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": null,
+      "draft_params": {
+        "draft_max": 20,
+        "draft_min": null,
+        "draft_p_min": 0.55
+      },
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 8192,
+      "rope_scaling": null,
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 135.56,
+          "runs": 10,
+          "metadata": {
+            "max_tokens": 1536,
+            "repeats": 2
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 176.36,
+        "mean_tps": 135.56,
+        "median_tps": 137.7,
+        "stdev_tps": 36.43,
+        "prompt_tps_mean": 432.86
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T14:21:06.558169",
+      "tags": [],
+      "notes": "win8k-q8kv-dmax20-p55"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "4b0c996adb1f4589",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": {
+        "name": "qwen3.6-1.7b",
+        "quant": "Q4"
+      },
+      "draft_params": {
+        "draft_max": 12,
+        "draft_min": null,
+        "draft_p_min": 0.6
+      },
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 8192,
+      "rope_scaling": null,
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 124.14,
+          "runs": 10,
+          "metadata": {
+            "max_tokens": 1536,
+            "repeats": 2
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 164.21,
+        "mean_tps": 124.14,
+        "median_tps": 124.95,
+        "stdev_tps": 22.62,
+        "prompt_tps_mean": 344.02
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T14:27:22.975255",
+      "tags": [
+        "speculative-decoding"
+      ],
+      "notes": "draft-1.7B-q4_dmax12-p60"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "9d93a5422a865f46",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": null,
+      "draft_params": {
+        "draft_max": 16,
+        "draft_min": null,
+        "draft_p_min": 0.6
+      },
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 8192,
+      "rope_scaling": null,
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 122.77,
+          "runs": 10,
+          "metadata": {
+            "max_tokens": 1536,
+            "repeats": 2
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 164.03,
+        "mean_tps": 122.77,
+        "median_tps": 123.27,
+        "stdev_tps": 25.69,
+        "prompt_tps_mean": 347.38
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T14:01:41.063053",
+      "tags": [],
+      "notes": "win8k-q8kv-dmax16-p60"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "71ecf63a0d8edcc7",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": null,
+      "draft_params": {
+        "draft_max": 12,
+        "draft_min": null,
+        "draft_p_min": 0.7
+      },
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 8192,
+      "rope_scaling": null,
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 121.42,
+          "runs": 10,
+          "metadata": {
+            "max_tokens": 1536,
+            "repeats": 2
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 160.32,
+        "mean_tps": 121.42,
+        "median_tps": 127.97,
+        "stdev_tps": 22.97,
+        "prompt_tps_mean": 338.13
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T14:11:31.247024",
+      "tags": [],
+      "notes": "win8k-q8kv-dmax12-p70"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "dcbe16357a5fc21d",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": {
+        "name": "qwen3.6-0.6b",
+        "quant": "Q8"
+      },
+      "draft_params": {
+        "draft_max": 8,
+        "draft_min": null,
+        "draft_p_min": 0.7
+      },
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 8192,
+      "rope_scaling": null,
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 117.96,
+          "runs": 10,
+          "metadata": {
+            "max_tokens": 1536,
+            "repeats": 2
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 156.0,
+        "mean_tps": 117.96,
+        "median_tps": 138.87,
+        "stdev_tps": 39.77,
+        "prompt_tps_mean": 420.72
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T14:45:02.877932",
+      "tags": [
+        "speculative-decoding"
+      ],
+      "notes": "draft-0.6B-q8_dmax8-p70"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "1045c3f3c8a53a5d",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": null,
+      "draft_params": {
+        "draft_max": 8,
+        "draft_min": null,
+        "draft_p_min": 0.6
+      },
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 8192,
+      "rope_scaling": null,
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 115.71,
+          "runs": 10,
+          "metadata": {
+            "max_tokens": 1536,
+            "repeats": 2
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 135.64,
+        "mean_tps": 115.71,
+        "median_tps": 112.15,
+        "stdev_tps": 14.59,
+        "prompt_tps_mean": 314.39
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T14:16:07.654381",
+      "tags": [],
+      "notes": "win8k-q8kv-dmax8-p60"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "9c3182b621b96379",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": {
+        "name": "qwen3.6-0.6b",
+        "quant": "Q8"
+      },
+      "draft_params": {
+        "draft_max": 16,
+        "draft_min": null,
+        "draft_p_min": 0.6
+      },
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 8192,
+      "rope_scaling": null,
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 109.55,
+          "runs": 10,
+          "metadata": {
+            "max_tokens": 1536,
+            "repeats": 2
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 168.55,
+        "mean_tps": 109.55,
+        "median_tps": 130.55,
+        "stdev_tps": 54.73,
+        "prompt_tps_mean": 336.73
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T14:36:55.046636",
+      "tags": [
+        "speculative-decoding"
+      ],
+      "notes": "draft-0.6B-q8_dmax16-p60"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "56f4cd38eefdfd93",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": {
+        "name": "qwen3.6-0.6b",
+        "quant": "Q8"
+      },
+      "draft_params": {
+        "draft_max": 12,
+        "draft_min": null,
+        "draft_p_min": 0.6
+      },
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 8192,
+      "rope_scaling": null,
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 108.72,
+          "runs": 10,
+          "metadata": {
+            "max_tokens": 1536,
+            "repeats": 2
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 164.38,
+        "mean_tps": 108.72,
+        "median_tps": 132.14,
+        "stdev_tps": 48.48,
+        "prompt_tps_mean": 341.44
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T14:32:08.307303",
+      "tags": [
+        "speculative-decoding"
+      ],
+      "notes": "draft-0.6B-q8_dmax12-p60"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "a02d44758e771721",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": {
+        "name": "qwen3.6-1.7b",
+        "quant": "Q8_0"
+      },
+      "draft_params": null,
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 262144,
+      "rope_scaling": null,
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 105.23,
+          "runs": 5,
+          "metadata": {
+            "max_tokens": 1024,
+            "repeats": 1
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 137.5,
+        "mean_tps": 105.23,
+        "median_tps": 98.03,
+        "stdev_tps": 19.08,
+        "prompt_tps_mean": 48.71
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T14:56:50.278158",
+      "tags": [
+        "speculative-decoding",
+        "long-context"
+      ],
+      "notes": "ctx256k-draft-1.7B"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "f72bcfdbfd8b79ee",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": null,
+      "draft_params": {
+        "draft_max": 16,
+        "draft_min": null,
+        "draft_p_min": 0.5
+      },
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 8192,
+      "rope_scaling": null,
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 103.6,
+          "runs": 10,
+          "metadata": {
+            "max_tokens": 1536,
+            "repeats": 2
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 155.45,
+        "mean_tps": 103.6,
+        "median_tps": 117.85,
+        "stdev_tps": 43.26,
+        "prompt_tps_mean": 272.9
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T14:06:26.153693",
+      "tags": [],
+      "notes": "win8k-q8kv-dmax16-p50"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "d7581bbdec12dea1",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": null,
+      "draft_params": {
+        "draft_max": 12,
+        "draft_min": null,
+        "draft_p_min": 0.6
+      },
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 8192,
+      "rope_scaling": null,
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 97.48,
+          "runs": 10,
+          "metadata": {
+            "max_tokens": 1536,
+            "repeats": 2
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 156.96,
+        "mean_tps": 97.48,
+        "median_tps": 105.07,
+        "stdev_tps": 38.23,
+        "prompt_tps_mean": 347.58
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T13:56:34.168084",
+      "tags": [],
+      "notes": "win8k-q8kv-dmax12-p60-v2"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "cd1fdd8b0314965f",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": {
+        "name": "qwen3.6-0.6b",
+        "quant": "Q8_0"
+      },
+      "draft_params": null,
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 262144,
+      "rope_scaling": null,
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 96.67,
+          "runs": 5,
+          "metadata": {
+            "max_tokens": 1024,
+            "repeats": 1
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 195.54,
+        "mean_tps": 96.67,
+        "median_tps": 45.56,
+        "stdev_tps": 83.93,
+        "prompt_tps_mean": 64.0
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T14:53:22.215670",
+      "tags": [
+        "speculative-decoding",
+        "long-context"
+      ],
+      "notes": "ctx256k-draft-0.6B"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "c6f42ff8eff71c3a",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": {
+        "name": "qwen3.6-0.6b",
+        "quant": "Q8_0"
+      },
+      "draft_params": null,
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 196608,
+      "rope_scaling": null,
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 75.18,
+          "runs": 5,
+          "metadata": {
+            "max_tokens": 1024,
+            "repeats": 1
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 216.69,
+        "mean_tps": 75.18,
+        "median_tps": 47.61,
+        "stdev_tps": 79.73,
+        "prompt_tps_mean": 458.04
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T14:50:24.478950",
+      "tags": [
+        "speculative-decoding",
+        "long-context"
+      ],
+      "notes": "ctx192k-draft-0.6B"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "b9bcfde725ff6f48",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": null,
+      "draft_params": null,
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 393216,
+      "rope_scaling": {
+        "method": "yarn",
+        "scale": 2.0
+      },
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 64.43,
+          "runs": 5,
+          "metadata": {
+            "max_tokens": 1024,
+            "repeats": 1
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 122.36,
+        "mean_tps": 64.43,
+        "median_tps": 39.07,
+        "stdev_tps": 50.9,
+        "prompt_tps_mean": 50.17
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T15:00:25.839726",
+      "tags": [
+        "long-context"
+      ],
+      "notes": "ctx384k-yarn2x-0.6B"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "669bafc4e268eb8e",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": null,
+      "draft_params": null,
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 786432,
+      "rope_scaling": {
+        "method": "yarn",
+        "scale": 4.0
+      },
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 10.3,
+          "runs": 5,
+          "metadata": {
+            "max_tokens": 1024,
+            "repeats": 1
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 10.35,
+        "mean_tps": 10.3,
+        "median_tps": 10.3,
+        "stdev_tps": 0.06,
+        "prompt_tps_mean": 47.46
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T15:15:14.147161",
+      "tags": [
+        "long-context",
+        "no-draft-baseline"
+      ],
+      "notes": "ctx768k-yarn4x-nodraft"
+    },
+    {
+      "schema_version": "v1",
+      "stack_id": "c8ede43737ff6152",
+      "model": {
+        "name": "Qwen3.6-27B",
+        "quant": "Q4_K_M",
+        "size_gb": 17.0
+      },
+      "runtime": {
+        "name": "llama-server",
+        "version": null,
+        "commit": null
+      },
+      "draft_model": null,
+      "draft_params": null,
+      "kv_cache_type_k": "q8_0",
+      "kv_cache_type_v": "q8_0",
+      "context_length": 524288,
+      "rope_scaling": {
+        "method": "yarn",
+        "scale": 3.0
+      },
+      "hardware": {
+        "gpu": "NVIDIA RTX 4090",
+        "vram_gb": 24.0,
+        "cpu": "Apple M-series or Intel (unknown exact)",
+        "ram_gb": null,
+        "os": "macOS"
+      },
+      "benchmarks": {
+        "speed": {
+          "score": 6.98,
+          "runs": 5,
+          "metadata": {
+            "max_tokens": 1024,
+            "repeats": 1
+          }
+        }
+      },
+      "speed": {
+        "peak_tps": 13.6,
+        "mean_tps": 6.98,
+        "median_tps": 6.3,
+        "stdev_tps": 5.95,
+        "prompt_tps_mean": 65.79
+      },
+      "vram_used_gb": null,
+      "submitter": {
+        "name": "Eric",
+        "twitter": null,
+        "github": null
+      },
+      "submitted_at": "2026-04-24T15:05:56.351525",
+      "tags": [
+        "long-context"
+      ],
+      "notes": "ctx512k-yarn3x-0.6B"
+    }
+  ]
+}

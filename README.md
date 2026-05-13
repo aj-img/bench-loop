@@ -95,6 +95,34 @@ benchloop run --model qwen3:8b --harness qwen     # <function_call>{...}</functi
 benchloop run --model qwen3:8b --harness pi       # <think>...</think> + Hermes tags
 ```
 
+### Stamp custom hardware (e.g. when benchmarking through a tunnel)
+
+```bash
+benchloop run \
+  --model qwen3:8b \
+  --endpoint http://localhost:11435 \
+  --hardware "NVIDIA RTX 4090 24GB" \
+  --gpu "NVIDIA RTX 4090" \
+  --gpu-memory-gb 24
+```
+
+### Launch the local dashboard
+
+v0.2.0+ ships the full FastAPI + React dashboard inside the wheel. After `pipx install benchloop-cli`:
+
+```bash
+benchloop dashboard
+# → open http://127.0.0.1:8877
+```
+
+This serves the Models, Benchmark, Leaderboard, Compare, and Chat tabs on a single port, with auto-discovered local providers (Ollama, LM Studio, MLX/Osaurus, vLLM, Jan).
+
+For hot-reload development against a clone of [`bench-loop-web`](https://github.com/outsourc-e/bench-loop-web):
+
+```bash
+benchloop dashboard --dev
+```
+
 ## Suites
 
 | Suite | What it scores |

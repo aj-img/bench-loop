@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "benchloop-cli"
-version = "0.1.7"
+version = "0.2.0"
 description = "Local-first CLI + web dashboard for benchmarking LLMs across quality, speed, reliability, and a real multi-turn agent loop. Hardware-aware, deterministic, reproducible."
 # Note: the PyPI name `benchloop` was already taken by an unrelated dataset
 # library, so the published distribution is `benchloop-cli`. The installed
@@ -32,6 +32,8 @@ dependencies = [
     "rich>=13.0",
     "pyyaml>=6.0",
     "psutil>=5.9",
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.27",
 ]
 
 [project.optional-dependencies]
@@ -54,6 +56,19 @@ Issues = "https://github.com/outsourc-e/bench-loop/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["bench_loop"]
+artifacts = [
+    "bench_loop/dashboard/ui/**",
+    "bench_loop/dashboard/api/**",
+]
+
+[tool.hatch.build.targets.sdist]
+artifacts = [
+    "bench_loop/dashboard/ui/**",
+    "bench_loop/dashboard/api/**",
+]
 
 [tool.hatch.build.targets.wheel.shared-data]
 "bench_loop/tasks" = "bench_loop/tasks"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
